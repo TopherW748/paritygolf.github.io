@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Looper Golf — AI-Powered Golf Coaching</title>
+  <meta name="description" content="Looper Golf is an AI-powered golf coaching app that helps you improve your game with personalized insights, club recommendations, and swing analysis." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal:       #00C9A7;
+      --teal-dark:  #00A88C;
+      --green-deep: #0D3B2E;
+      --bg:         #F7FFFE;
+      --text:       #1A2E29;
+      --muted:      #5A7A72;
+      --border:     #D0EDE8;
+      --white:      #FFFFFF;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13, 59, 46, 0.97);
+      backdrop-filter: blur(8px);
+      padding: 0 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px;
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 10px;
+      color: var(--white); font-weight: 700; font-size: 1.1rem;
+      text-decoration: none;
+    }
+    .nav-brand img { width: 32px; height: 32px; border-radius: 7px; }
+    nav a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.9rem; margin-left: 28px; }
+    nav a:hover { color: var(--teal); }
+    .nav-links { display: flex; align-items: center; }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(160deg, var(--green-deep) 0%, #145740 60%, #1a7a59 100%);
+      color: var(--white);
+      text-align: center;
+      padding: 90px 5% 80px;
+    }
+    .hero-icon {
+      width: 120px; height: 120px;
+      border-radius: 28px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      margin-bottom: 28px;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      line-height: 1.15;
+    }
+    .hero h1 span { color: var(--teal); }
+    .hero p {
+      margin-top: 18px;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: rgba(255,255,255,0.82);
+      max-width: 540px;
+      margin-left: auto; margin-right: auto;
+    }
+    .hero-badges {
+      margin-top: 36px;
+      display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;
+    }
+    .badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 50px;
+      padding: 8px 18px;
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.9);
+    }
+    .badge-icon { font-size: 1rem; }
+
+    /* ── SECTION COMMON ── */
+    section { padding: 72px 5%; }
+    .section-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--teal-dark);
+      margin-bottom: 10px;
+    }
+    h2 {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 800;
+      color: var(--green-deep);
+      margin-bottom: 14px;
+    }
+    .section-intro {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 580px;
+      margin-bottom: 48px;
+    }
+
+    /* ── FEATURES ── */
+    #features { background: var(--white); }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+    }
+    .feature-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 24px;
+    }
+    .feature-emoji { font-size: 2rem; margin-bottom: 14px; }
+    .feature-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--green-deep); margin-bottom: 8px; }
+    .feature-card p { font-size: 0.92rem; color: var(--muted); }
+
+    /* ── PERSONAS ── */
+    #personas { background: var(--bg); }
+    .personas-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .persona-card {
+      border-radius: 16px;
+      padding: 28px 24px;
+      color: var(--white);
+    }
+    .persona-card.coach  { background: linear-gradient(135deg, #145740, #1a7a59); }
+    .persona-card.caddie { background: linear-gradient(135deg, #0D3B2E, #145740); }
+    .persona-card.analyst{ background: linear-gradient(135deg, #00A88C, #007A68); }
+    .persona-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+    .persona-card p { font-size: 0.9rem; opacity: 0.85; }
+    .persona-tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.18);
+      border-radius: 50px;
+      padding: 4px 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--white); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    @media (max-width: 680px) { .about-grid { grid-template-columns: 1fr; gap: 32px; } }
+    .about-text p { color: var(--muted); margin-bottom: 14px; }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--green-deep); color: var(--white); text-align: center; }
+    #contact h2 { color: var(--white); }
+    #contact .section-label { color: var(--teal); }
+    .contact-info {
+      display: flex; flex-direction: column; align-items: center; gap: 14px;
+      margin-top: 36px;
+    }
+    .contact-row {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.98rem; color: rgba(255,255,255,0.85);
+    }
+    .contact-row a { color: var(--teal); text-decoration: none; }
+    .contact-row a:hover { text-decoration: underline; }
+    .contact-icon { font-size: 1.1rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #091f18;
+      color: rgba(255,255,255,0.45);
+      text-align: center;
+      padding: 24px 5%;
+      font-size: 0.82rem;
+    }
+    footer a { color: rgba(255,255,255,0.55); text-decoration: none; }
+    footer a:hover { color: var(--teal); }
+    .footer-links { margin-bottom: 8px; display: flex; justify-content: center; gap: 20px; }
+
+    /* ── RESPONSIVE NAV ── */
+    @media (max-width: 520px) {
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="#top">
+    <img src="assets/looper-icon.png" alt="Looper Golf icon" />
+    Looper Golf
+  </a>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#personas">AI Coaches</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <img class="hero-icon" src="assets/looper-icon.png" alt="Looper Golf App icon" />
+  <h1>Golf coaching,<br /><span>powered by AI</span></h1>
+  <p>Looper analyzes your launch monitor data and delivers personalized coaching, club recommendations, and swing insights — like having a coach in your pocket.</p>
+  <div class="hero-badges">
+    <span class="badge"><span class="badge-icon">📱</span> iOS App</span>
+    <span class="badge"><span class="badge-icon">⛳</span> GSPro Integration</span>
+    <span class="badge"><span class="badge-icon">🤖</span> AI-Powered</span>
+    <span class="badge"><span class="badge-icon">🏌️</span> Personalized</span>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="section-label">What Looper Does</div>
+  <h2>Everything your game needs</h2>
+  <p class="section-intro">Looper connects to your launch monitor data and gives you the kind of analysis that used to require a professional fitting or coaching session.</p>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-emoji">📊</div>
+      <h3>Launch Monitor Analysis</h3>
+      <p>Import your GSPro session data and get instant breakdowns of ball speed, spin rate, carry distance, and more — per club.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-emoji">🏌️</div>
+      <h3>Swing Fault Detection</h3>
+      <p>Looper identifies patterns across your shots and flags recurring faults with recommended drills to fix them.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-emoji">🎯</div>
+      <h3>Club Recommendations</h3>
+      <p>Tell Looper your distance, wind, lie and hazards — it calculates the optimal club using your actual distance data.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-emoji">📈</div>
+      <h3>Progress Tracking</h3>
+      <p>Track trends across sessions and see how your ball striking, consistency, and distances evolve over time.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-emoji">🎓</div>
+      <h3>Coaching Library</h3>
+      <p>Browse drills, videos, and coaching topics curated to your specific swing faults and skill level.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-emoji">👨‍🏫</div>
+      <h3>Coach in the Loop</h3>
+      <p>Human coaches can connect to their students through Looper to review data, send drills, and monitor progress remotely.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PERSONAS -->
+<section id="personas">
+  <div class="section-label">Three AI Personas</div>
+  <h2>The right voice for every situation</h2>
+  <p class="section-intro">Looper adapts its coaching style depending on what you need — whether you're on the range, on the course, or diving deep into your numbers.</p>
+  <div class="personas-grid">
+    <div class="persona-card coach">
+      <div class="persona-tag">Coach</div>
+      <h3>The Coach</h3>
+      <p>Identifies your faults, builds a practice plan, and guides you through structured improvement with drills and progressions.</p>
+    </div>
+    <div class="persona-card caddie">
+      <div class="persona-tag">Caddie</div>
+      <h3>The Caddie</h3>
+      <p>On-course strategy and club selection. Tell it your distance, wind and hazards — it recommends the smart play based on your data.</p>
+    </div>
+    <div class="persona-card analyst">
+      <div class="persona-tag">Analyst</div>
+      <h3>The Analyst</h3>
+      <p>Deep dive into your metrics. Compare to tour benchmarks, identify outlier shots, and understand what the numbers actually mean.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">The Company</div>
+  <h2>About Parity Golf</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>Parity Golf is a Swedish technology company building intelligent tools that make high-quality golf coaching accessible to every player — not just those with access to expensive instructors or fitting studios.</p>
+      <p>We believe the gap between amateur and tour-level play isn't just physical — it's informational. Launch monitors and AI now make it possible to close that gap. Looper is our first step.</p>
+      <p>Founded and based in Bromma, Stockholm, Sweden.</p>
+    </div>
+    <div class="about-text">
+      <p><strong style="color:var(--green-deep);">Our mission</strong> is to give every golfer the same quality of feedback and coaching insight that professionals take for granted — delivered through the data their own game produces.</p>
+      <p>Looper is available on iOS and is designed for golfers who use launch monitors like GSPro to practice and improve.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Get in Touch</div>
+  <h2>Contact Us</h2>
+  <p style="color:rgba(255,255,255,0.7); margin-top:10px;">Questions about Looper, support requests, or partnership enquiries — we'd love to hear from you.</p>
+  <div class="contact-info">
+    <div class="contact-row">
+      <span class="contact-icon">✉️</span>
+      <a href="mailto:paritygolfab@gmail.com">paritygolfab@gmail.com</a>
+    </div>
+    <div class="contact-row">
+      <span class="contact-icon">📍</span>
+      <span>Kyrkoherdevägen 29, Bromma, 16859, Sweden</span>
+    </div>
+    <div class="contact-row">
+      <span class="contact-icon">🌐</span>
+      <span>Parity Golf AB</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-links">
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="mailto:paritygolfab@gmail.com">Support</a>
+  </div>
+  <div>&copy; 2025 Parity Golf AB. All rights reserved. Looper is a product of Parity Golf AB, Sweden.</div>
+</footer>
+
+</body>
+</html>
