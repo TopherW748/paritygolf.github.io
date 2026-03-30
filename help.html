@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Help — Looper Golf</title>
+  <meta name="description" content="Help and support topics for the Looper Golf app." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal:       #00C9A7;
+      --teal-dark:  #00A88C;
+      --green-deep: #0D3B2E;
+      --bg:         #F7FFFE;
+      --text:       #1A2E29;
+      --muted:      #5A7A72;
+      --border:     #D0EDE8;
+      --white:      #FFFFFF;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13, 59, 46, 0.97);
+      backdrop-filter: blur(8px);
+      padding: 0 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px;
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 10px;
+      color: var(--white); font-weight: 700; font-size: 1.1rem;
+      text-decoration: none;
+    }
+    .nav-brand img { width: 32px; height: 32px; border-radius: 7px; }
+    nav a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.9rem; margin-left: 28px; }
+    nav a:hover { color: var(--teal); }
+    .nav-links { display: flex; align-items: center; }
+    @media (max-width: 520px) { .nav-links { display: none; } }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      background: linear-gradient(160deg, var(--green-deep) 0%, #145740 60%, #1a7a59 100%);
+      color: var(--white);
+      padding: 64px 5% 56px;
+    }
+    .page-header .section-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 10px;
+    }
+    .page-header h1 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 14px;
+    }
+    .page-header p {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.8);
+      max-width: 540px;
+    }
+
+    /* ── LAYOUT ── */
+    .help-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 0;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 5%;
+    }
+    @media (max-width: 720px) {
+      .help-layout { grid-template-columns: 1fr; }
+      .help-sidebar { display: none; }
+    }
+
+    /* ── SIDEBAR ── */
+    .help-sidebar {
+      position: sticky;
+      top: 76px;
+      align-self: start;
+      padding-right: 32px;
+    }
+    .sidebar-section { margin-bottom: 28px; }
+    .sidebar-section-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .sidebar-section a {
+      display: block;
+      font-size: 0.88rem;
+      color: var(--text);
+      text-decoration: none;
+      padding: 5px 0;
+      border-left: 2px solid transparent;
+      padding-left: 10px;
+    }
+    .sidebar-section a:hover {
+      color: var(--teal-dark);
+      border-left-color: var(--teal);
+    }
+
+    /* ── HELP CONTENT ── */
+    .help-content { min-width: 0; }
+
+    .help-topic {
+      margin-bottom: 56px;
+      scroll-margin-top: 80px;
+    }
+    .help-topic .topic-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--teal-dark);
+      margin-bottom: 6px;
+    }
+    .help-topic h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--green-deep);
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--border);
+    }
+    .help-topic .placeholder {
+      background: var(--white);
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      padding: 28px 24px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      font-style: italic;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #091f18;
+      color: rgba(255,255,255,0.45);
+      text-align: center;
+      padding: 24px 5%;
+      font-size: 0.82rem;
+    }
+    footer a { color: rgba(255,255,255,0.55); text-decoration: none; }
+    footer a:hover { color: var(--teal); }
+    .footer-links { margin-bottom: 8px; display: flex; justify-content: center; gap: 20px; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="index.html">
+    <img src="assets/looper-icon.png" alt="Looper Golf icon" />
+    Looper Golf
+  </a>
+  <div class="nav-links">
+    <a href="index.html#features">Features</a>
+    <a href="index.html#coaches">For Coaches</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="section-label">Support</div>
+  <h1>Help Center</h1>
+  <p>Everything you need to get the most out of Looper Golf.</p>
+</div>
+
+<!-- HELP LAYOUT -->
+<div class="help-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="help-sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Getting Started</div>
+      <a href="#getting-started">Getting Started</a>
+      <a href="#connecting-launch-monitor">Connecting Your Launch Monitor</a>
+      <a href="#importing-data">Importing Session Data</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">AI Coaching</div>
+      <a href="#ai-coach">Using the AI Coach</a>
+      <a href="#ai-caddie">Using the AI Caddie</a>
+      <a href="#ai-analyst">Using the AI Analyst</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Features</div>
+      <a href="#club-recommendations">Club Recommendations</a>
+      <a href="#swing-analysis">Swing Analysis</a>
+      <a href="#progress-tracking">Progress Tracking</a>
+      <a href="#coaching-library">Coaching Library</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">For Coaches</div>
+      <a href="#coach-connect">Connecting to Students</a>
+      <a href="#coach-drills">Assigning Drills</a>
+      <a href="#coach-feedback">Sending Feedback</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Account</div>
+      <a href="#account-settings">Account Settings</a>
+      <a href="#subscription">Subscription</a>
+      <a href="#privacy-data">Privacy &amp; Data</a>
+    </div>
+  </aside>
+
+  <!-- CONTENT -->
+  <main class="help-content">
+
+    <!-- GETTING STARTED -->
+    <div class="help-topic" id="getting-started">
+      <div class="topic-label">Getting Started</div>
+      <h2>Getting Started</h2>
+      <div class="placeholder">Content coming soon — paste your help text here.</div>
+    </div>
+
+    <div class="help-topic" id="connecting-launch-monitor">
+      <div class="topic-label">Getting Started</div>
+      <h2>Connecting Your Launch Monitor</h2>
+      <div class="placeholder">Content coming soon — paste your help text here.</div>
+    </div>
+
+    <div class="help-topic" id="importing-data">
+      <div class="topic-label">Getting Started</div>
+      <h2>Importing Session Data</h2>
+      <div class="placeholder">Content coming soon — paste your help text here.</div>
+    </div>
+
+    <!-- AI COACHING -->
+    <div class="help-topic" id="ai-coach">
+      <div class="topic-label">AI Coaching</div>
+      <h2>Using the AI Coach</h2>
+      <div class="placeholder">Content coming soon — paste your help text here.</div>
+    </div>
+
+    <div class="help-topic" id="ai-caddie">
+      <div class="topic-label">AI Coaching</div>
+      <h2>Using the AI Caddie</h2>
+      <div class="placeholder">Content coming soon — paste your help text here.</div>
+    </div>
+
+    <div class="help-topic" id="ai-analyst">
+      <div class="topic-label">AI Coaching</div>
+      <h2>Using the AI Analyst</h2>
+      <div class="placeholder">Content coming soon — paste your help text here.</div>
+    </div>
+
+    <!-- FEATURES -->
+    <div class="help-topic" id="club-recommendations">
+      <div class="topic-label">Features</div>
+      <h2>Club Recommendations</h2>
+      <div class="placeholder">Content coming soon — paste your help text here.</div>
+    </div>
+
+    <div class="help-topic" id="swing-analysis">
+      <div class="topic-label">Features</div>
+      <h2>Swing Analysis</h2>
+      <div class="placeholder">Content coming soon — paste your help text here.</div>
+    </div>
+
+    <div class="help-topic" id="progress-tracking">
+      <div class="topic-label">Features</div>
+      <h2>Progress Tracking</h2>
+      <div class="placeholder">Content coming soon — paste your help text here.</div>
+    </div>
+
+    <div class="help-topic" id="coaching-library">
+      <div class="topic-label">Features</div>
+      <h2>Coaching Library</h2>
+      <div class="placeholder">Content coming soon — paste your help text here.</div>
+    </div>
+
+    <!-- FOR COACHES -->
+    <div class="help-topic" id="coach-connect">
+      <div class="topic-label">For Coaches</div>
+      <h2>Connecting to Students</h2>
+      <div class="placeholder">Content coming soon — paste your help text here.</div>
+    </div>
+
+    <div class="help-topic" id="coach-drills">
+      <div class="topic-label">For Coaches</div>
+      <h2>Assigning Drills</h2>
+      <div class="placeholder">Content coming soon — paste your help text here.</div>
+    </div>
+
+    <div class="help-topic" id="coach-feedback">
+      <div class="topic-label">For Coaches</div>
+      <h2>Sending Feedback</h2>
+      <div class="placeholder">Content coming soon — paste your help text here.</div>
+    </div>
+
+    <!-- ACCOUNT -->
+    <div class="help-topic" id="account-settings">
+      <div class="topic-label">Account</div>
+      <h2>Account Settings</h2>
+      <div class="placeholder">Content coming soon — paste your help text here.</div>
+    </div>
+
+    <div class="help-topic" id="subscription">
+      <div class="topic-label">Account</div>
+      <h2>Subscription</h2>
+      <div class="placeholder">Content coming soon — paste your help text here.</div>
+    </div>
+
+    <div class="help-topic" id="privacy-data">
+      <div class="topic-label">Account</div>
+      <h2>Privacy &amp; Data</h2>
+      <div class="placeholder">Content coming soon — paste your help text here.</div>
+    </div>
+
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-links">
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="help.html">Help</a>
+    <a href="mailto:paritygolfab@gmail.com">Support</a>
+  </div>
+  <div>&copy; 2025 Parity Golf AB. All rights reserved. Looper is a product of Parity Golf AB, Sweden.</div>
+</footer>
+
+</body>
+</html>
