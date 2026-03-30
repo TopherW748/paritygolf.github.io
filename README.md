@@ -19,6 +19,5 @@ Served via GitHub Pages from the `main` branch root.
 Custom domain: `paritygolf.se`
 
 ## Contact
-
+info@paritygolf.se
 paritygolfab@gmail.com
-~                       
