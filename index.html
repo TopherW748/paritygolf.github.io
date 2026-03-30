@@ -6,7 +6,7 @@
   <title>Looper Golf — AI-Powered Golf Companion</title>
   <meta name="description" content="Looper Golf is an AI-powered golf app that helps you improve your game with personalized insights, club recommendations, and swing analysis." />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; } 
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
       --teal:       #00C9A7;
@@ -88,6 +88,20 @@
       color: rgba(255,255,255,0.9);
     }
     .badge-icon { font-size: 1rem; }
+    .appstore-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: rgba(255,255,255,0.15);
+      border: 1.5px solid rgba(255,255,255,0.35);
+      border-radius: 12px;
+      padding: 10px 20px;
+      color: var(--white);
+      text-decoration: none;
+      margin-top: 32px;
+      cursor: default;
+    }
+    .appstore-btn-text { text-align: left; }
+    .appstore-btn-text .coming { font-size: 0.7rem; opacity: 0.75; letter-spacing: 0.5px; display: block; }
+    .appstore-btn-text .store { font-size: 1rem; font-weight: 700; display: block; }
 
     /* ── SECTION COMMON ── */
     section { padding: 72px 5%; }
@@ -273,6 +287,15 @@
     <span class="badge"><span class="badge-icon">🤖</span> AI-Powered</span>
     <span class="badge"><span class="badge-icon">🏌️</span> Personalized</span>
   </div>
+  <div>
+    <span class="appstore-btn">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      <span class="appstore-btn-text">
+        <span class="coming">Coming Soon on</span>
+        <span class="store">App Store</span>
+      </span>
+    </span>
+  </div>
 </section>
 
 <!-- FEATURES -->
@@ -380,7 +403,7 @@
       <h3>Are you a golf coach?</h3>
       <p>Get early access to the Looper Coach dashboard — designed to make remote coaching and student monitoring simple and data-driven.</p>
     </div>
-    <a href="mailto:info@paritygolf.se?subject=Coach%20Access%20Request">Get in touch</a>
+    <a href="mailto:paritygolfab@gmail.com?subject=Coach%20Access%20Request">Get in touch</a>
   </div>
 </section>
 
