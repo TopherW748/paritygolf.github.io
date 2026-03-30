@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -156,51 +157,8 @@
       margin-bottom: 14px;
     }
 
-    /* ── COACHES ── */
-    #coaches { background: var(--white); }
-    .coaches-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 24px;
-      margin-bottom: 48px;
-    }
-    .coach-card {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 28px 24px;
-    }
-    .coach-card .feature-emoji { font-size: 2rem; margin-bottom: 14px; }
-    .coach-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--green-deep); margin-bottom: 8px; }
-    .coach-card p { font-size: 0.92rem; color: var(--muted); }
-    .coach-cta {
-      background: linear-gradient(135deg, var(--green-deep), #1a7a59);
-      border-radius: 16px;
-      padding: 36px 32px;
-      color: var(--white);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-    .coach-cta h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 6px; }
-    .coach-cta p { font-size: 0.92rem; opacity: 0.82; max-width: 480px; }
-    .coach-cta a {
-      display: inline-block;
-      background: var(--teal);
-      color: var(--white);
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 0.9rem;
-      padding: 12px 26px;
-      border-radius: 50px;
-      white-space: nowrap;
-    }
-    .coach-cta a:hover { background: var(--teal-dark); }
-
     /* ── ABOUT ── */
-    #about { background: var(--bg); }
+    #about { background: var(--white); }
     .about-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -255,9 +213,7 @@
   <div class="nav-links">
     <a href="#features">Features</a>
     <a href="#personas">AI Coaches</a>
-    <a href="#coaches">For Coaches</a>
     <a href="#about">About</a>
-    <a href="help.html">Help</a>
     <a href="#contact">Contact</a>
   </div>
 </nav>
@@ -338,52 +294,6 @@
   </div>
 </section>
 
-<!-- FOR COACHES -->
-<section id="coaches">
-  <div class="section-label">For Golf Professionals</div>
-  <h2>Connect with your students through Looper</h2>
-  <p class="section-intro">Looper isn't just for solo golfers. Real coaches can link directly to their students' accounts to monitor progress, assign drills, and deliver feedback — remotely or in person.</p>
-  <div class="coaches-grid">
-    <div class="coach-card">
-      <div class="feature-emoji">🔗</div>
-      <h3>Connect to Students</h3>
-      <p>Students invite you to their Looper account with a simple code. Once connected, you have a live view of their practice data and session history.</p>
-    </div>
-    <div class="coach-card">
-      <div class="feature-emoji">📋</div>
-      <h3>Review Session Data</h3>
-      <p>See exactly what your student hit on the range — ball speed, spin, carry, dispersion — without needing to be there in person.</p>
-    </div>
-    <div class="coach-card">
-      <div class="feature-emoji">🏋️</div>
-      <h3>Assign Drills</h3>
-      <p>Push specific drills and practice tasks directly to your student's app. They show up in their coaching queue ready to follow.</p>
-    </div>
-    <div class="coach-card">
-      <div class="feature-emoji">📬</div>
-      <h3>Send Feedback</h3>
-      <p>Leave notes and observations on sessions. Students get your feedback in context — tied to the specific shots or trends you're commenting on.</p>
-    </div>
-    <div class="coach-card">
-      <div class="feature-emoji">📈</div>
-      <h3>Track Progress Over Time</h3>
-      <p>See how your students improve across weeks and months. Trend charts show you whether your coaching is moving the needle.</p>
-    </div>
-    <div class="coach-card">
-      <div class="feature-emoji">👥</div>
-      <h3>Manage Multiple Students</h3>
-      <p>Switch between students from a single coach dashboard. Each student's data is kept separate and private.</p>
-    </div>
-  </div>
-  <div class="coach-cta">
-    <div>
-      <h3>Are you a golf coach?</h3>
-      <p>Get early access to the Looper Coach dashboard — designed to make remote coaching and student monitoring simple and data-driven.</p>
-    </div>
-    <a href="mailto:paritygolfab@gmail.com?subject=Coach%20Access%20Request">Get in touch</a>
-  </div>
-</section>
-
 <!-- ABOUT -->
 <section id="about">
   <div class="section-label">The Company</div>
@@ -426,7 +336,6 @@
 <footer>
   <div class="footer-links">
     <a href="privacy.html">Privacy Policy</a>
-    <a href="help.html">Help</a>
     <a href="mailto:info@paritygolf.se">Support</a>
   </div>
   <div>&copy; 2025 Parity Golf AB. All rights reserved. Looper is a product of Parity Golf AB, Sweden.</div>
