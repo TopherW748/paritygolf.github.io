@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Help — Looper Golf</title>
-  <meta name="description" content="Help guide for Looper Golf — learn how to set up your bag, import shot data, use the caddie, connect with a coach, and more." />
+  <meta name="description" content="Help and support topics for the Looper Golf app." />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -20,6 +20,7 @@
     }
 
     html { scroll-behavior: smooth; }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       background: var(--bg);
@@ -27,10 +28,10 @@
       line-height: 1.6;
     }
 
-    /* NAV */
+    /* ── NAV ── */
     nav {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(13,59,46,0.97);
+      background: rgba(13, 59, 46, 0.97);
       backdrop-filter: blur(8px);
       padding: 0 5%;
       display: flex; align-items: center; justify-content: space-between;
@@ -47,144 +48,110 @@
     .nav-links { display: flex; align-items: center; }
     @media (max-width: 520px) { .nav-links { display: none; } }
 
-    /* HERO */
-    .hero {
+    /* ── PAGE HEADER ── */
+    .page-header {
       background: linear-gradient(160deg, var(--green-deep) 0%, #145740 60%, #1a7a59 100%);
       color: var(--white);
       padding: 64px 5% 56px;
-      text-align: center;
     }
-    .hero h1 { font-size: clamp(1.8rem,4vw,2.6rem); font-weight: 800; }
-    .hero p  { margin-top: 12px; font-size: 1.05rem; color: rgba(255,255,255,0.8); max-width: 520px; margin-left: auto; margin-right: auto; }
-
-    /* LAYOUT */
-    .page { max-width: 780px; margin: 0 auto; padding: 48px 5% 80px; }
-
-    /* ALERT BANNER */
-    .alert {
-      background: #fff8e6;
-      border: 1px solid #f0c040;
-      border-left: 4px solid #f0a800;
-      border-radius: 10px;
-      padding: 16px 20px;
-      margin-bottom: 36px;
-      display: flex; gap: 12px; align-items: flex-start;
+    .page-header .section-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 10px;
     }
-    .alert-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 1px; }
-    .alert p { font-size: 0.95rem; color: #5a4200; line-height: 1.55; }
-    .alert a { color: #b07800; font-weight: 600; }
+    .page-header h1 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 14px;
+    }
+    .page-header p {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.8);
+      max-width: 540px;
+    }
 
-    /* SECTION HEADERS */
-    .section-title {
-      font-size: 1.25rem; font-weight: 800; color: var(--green-deep);
-      margin: 40px 0 16px;
-      padding-bottom: 8px;
+    /* ── LAYOUT ── */
+    .help-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 0;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 5%;
+    }
+    @media (max-width: 720px) {
+      .help-layout { grid-template-columns: 1fr; }
+      .help-sidebar { display: none; }
+    }
+
+    /* ── SIDEBAR ── */
+    .help-sidebar {
+      position: sticky;
+      top: 76px;
+      align-self: start;
+      padding-right: 32px;
+    }
+    .sidebar-section { margin-bottom: 28px; }
+    .sidebar-section-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .sidebar-section a {
+      display: block;
+      font-size: 0.88rem;
+      color: var(--text);
+      text-decoration: none;
+      padding: 5px 0;
+      border-left: 2px solid transparent;
+      padding-left: 10px;
+    }
+    .sidebar-section a:hover {
+      color: var(--teal-dark);
+      border-left-color: var(--teal);
+    }
+
+    /* ── HELP CONTENT ── */
+    .help-content { min-width: 0; }
+
+    .help-topic {
+      margin-bottom: 56px;
+      scroll-margin-top: 80px;
+    }
+    .help-topic .topic-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--teal-dark);
+      margin-bottom: 6px;
+    }
+    .help-topic h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--green-deep);
+      margin-bottom: 16px;
+      padding-bottom: 12px;
       border-bottom: 2px solid var(--border);
     }
-
-    /* ACCORDION */
-    .accordion { display: flex; flex-direction: column; gap: 10px; }
-
-    details {
+    .help-topic .placeholder {
       background: var(--white);
-      border: 1px solid var(--border);
+      border: 1px dashed var(--border);
       border-radius: 12px;
-      overflow: hidden;
-    }
-    details[open] { border-color: var(--teal-dark); }
-
-    summary {
-      display: flex; align-items: center; gap: 12px;
-      padding: 16px 18px;
-      cursor: pointer;
-      list-style: none;
-      font-weight: 600;
-      font-size: 0.97rem;
-      color: var(--text);
-      user-select: none;
-    }
-    summary::-webkit-details-marker { display: none; }
-    .summary-icon {
-      width: 34px; height: 34px; border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1rem; flex-shrink: 0;
-    }
-    .summary-text { flex: 1; }
-    .chevron {
-      font-size: 0.75rem; color: var(--muted);
-      transition: transform 0.2s;
-    }
-    details[open] .chevron { transform: rotate(180deg); }
-
-    .detail-body {
-      padding: 0 18px 18px 64px;
-      font-size: 0.93rem;
+      padding: 28px 24px;
       color: var(--muted);
-      line-height: 1.7;
-    }
-    .detail-body p { margin-bottom: 10px; }
-    .detail-body p:last-child { margin-bottom: 0; }
-    .detail-body ol, .detail-body ul { padding-left: 20px; margin-bottom: 10px; }
-    .detail-body li { margin-bottom: 4px; }
-    .detail-body strong { color: var(--text); }
-    .detail-body .howto {
-      display: inline-block;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 4px 10px;
-      font-size: 0.85rem;
-      font-family: monospace;
-      color: var(--teal-dark);
-      margin-top: 6px;
+      font-size: 0.92rem;
+      font-style: italic;
     }
 
-    /* DATA PATH CARDS */
-    .data-paths { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
-    .data-path {
-      display: flex; gap: 12px; align-items: flex-start;
-      background: var(--bg); border: 1px solid var(--border);
-      border-radius: 10px; padding: 14px;
-    }
-    .path-num {
-      width: 26px; height: 26px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.8rem; font-weight: 700; flex-shrink: 0; margin-top: 1px;
-    }
-    .data-path h4 { font-size: 0.9rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
-    .data-path p  { font-size: 0.85rem; color: var(--muted); margin: 0; }
-    .badge {
-      display: inline-block; font-size: 0.72rem; font-weight: 700;
-      padding: 2px 7px; border-radius: 4px; margin-left: 6px; vertical-align: middle;
-    }
-
-    /* FEATURE GROUPS */
-    .feature-groups { display: flex; flex-direction: column; gap: 0; }
-    .feature-group {
-      padding: 18px 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .feature-group:last-child { border-bottom: none; }
-    .feature-group h4 {
-      font-size: 0.88rem; font-weight: 700;
-      margin-bottom: 10px;
-      display: flex; align-items: center; gap: 7px;
-    }
-    .feature-group ul { list-style: none; padding: 0; }
-    .feature-group li {
-      font-size: 0.88rem; color: var(--muted);
-      padding: 3px 0 3px 16px;
-      position: relative;
-    }
-    .feature-group li::before {
-      content: "·"; position: absolute; left: 4px;
-      color: var(--teal-dark); font-weight: 700;
-    }
-    .dot {
-      width: 9px; height: 9px; border-radius: 50%; display: inline-block;
-    }
-
-    /* FOOTER */
+    /* ── FOOTER ── */
     footer {
       background: #091f18;
       color: rgba(255,255,255,0.45);
@@ -202,352 +169,172 @@
 <!-- NAV -->
 <nav>
   <a class="nav-brand" href="index.html">
-    <img src="assets/looper-icon.png" alt="Looper Golf" />
+    <img src="assets/looper-icon.png" alt="Looper Golf icon" />
     Looper Golf
   </a>
   <div class="nav-links">
     <a href="index.html#features">Features</a>
-    <a href="index.html#personas">AI Coaches</a>
+    <a href="index.html#coaches">For Coaches</a>
     <a href="index.html#about">About</a>
     <a href="index.html#contact">Contact</a>
   </div>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <h1>Help &amp; Support</h1>
-  <p>Everything you need to get started and get the most out of Looper Golf.</p>
-</section>
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="section-label">Support</div>
+  <h1>Help Center</h1>
+  <p>Everything you need to get the most out of Looper Golf.</p>
+</div>
 
-<div class="page">
+<!-- HELP LAYOUT -->
+<div class="help-layout">
 
-  <!-- UPLOAD FAILURE BANNER -->
-  <div class="alert">
-    <div class="alert-icon">⚠️</div>
-    <p>
-      <strong>Having trouble uploading your shot data?</strong><br />
-      Email your CSV file to <a href="mailto:info@paritygolf.se">info@paritygolf.se</a> with your
-      <strong>Player ID</strong> (found in your Profile — looks like <code>P_123456</code>) and we'll
-      load it into your account right away.
-    </p>
-  </div>
-
-  <!-- GETTING STARTED -->
-  <div class="section-title">Getting Started</div>
-  <div class="accordion">
-
-    <details open>
-      <summary>
-        <div class="summary-icon" style="background:#e8f4ff;">📥</div>
-        <span class="summary-text">Getting Your Data In</span>
-        <span class="chevron">▼</span>
-      </summary>
-      <div class="detail-body">
-        <p>Looper works even without a launch monitor. Use any of these paths — or combine them:</p>
-        <div class="data-paths">
-          <div class="data-path">
-            <div class="path-num" style="background:#e6f9f2;color:#0a7a50;">1</div>
-            <div>
-              <h4>Log shots on-course <span class="badge" style="background:#e6f9f2;color:#0a7a50;">Easiest</span></h4>
-              <p>Open a round and tap <strong>Log Shot</strong> after each shot. Looper uses GPS distance and your club choice to build your carry profile over time — no range session required.</p>
-              <span class="howto">Home → Play Round → Log Shot</span>
-            </div>
-          </div>
-          <div class="data-path">
-            <div class="path-num" style="background:#e6f9f9;color:#007a72;">2</div>
-            <div>
-              <h4>Start with a starter profile <span class="badge" style="background:#e6f9f9;color:#007a72;">Quick Start</span></h4>
-              <p>Pick a profile that matches your game (e.g. "Mid-handicapper"). Looper pre-loads realistic carry distances so your caddie and coach features work from day one.</p>
-              <span class="howto">Profile → Starter Data → Choose a Profile</span>
-            </div>
-          </div>
-          <div class="data-path">
-            <div class="path-num" style="background:#fff3e6;color:#b05a00;">3</div>
-            <div>
-              <h4>Enter distances manually</h4>
-              <p>If you know roughly how far you hit each club, set those distances directly. The caddie uses them immediately.</p>
-              <span class="howto">Equipment → long-press a club → Set Distance Override</span>
-            </div>
-          </div>
-          <div class="data-path">
-            <div class="path-num" style="background:#e8f0ff;color:#2a4ab0;">4</div>
-            <div>
-              <h4>Import a launch monitor CSV <span class="badge" style="background:#e8f0ff;color:#2a4ab0;">Best Quality</span></h4>
-              <p>Export a session from Trackman, FlightScope, Foresight, or GSPro and import it. This gives Looper the richest data for the most accurate recommendations.</p>
-              <span class="howto">Sessions → + → Choose File</span>
-              <p style="margin-top:8px;font-size:0.85rem;"><strong>Upload not working?</strong> Email your CSV to <a href="mailto:info@paritygolf.se" style="color:var(--teal-dark);font-weight:600;">info@paritygolf.se</a> with your Player ID and we'll load it for you right away.</p>
-            </div>
-          </div>
-          <div class="data-path">
-            <div class="path-num" style="background:#eeecff;color:#4a3ab0;">5</div>
-            <div>
-              <h4>Have your coach upload data for you</h4>
-              <p>If you work with a coach using Looper, they can import your launch monitor CSV directly into your account from their Coach Dashboard.</p>
-            </div>
-          </div>
-        </div>
-        <p style="margin-top:14px;font-size:0.85rem;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 14px;">
-          💡 <strong>Tip:</strong> Start with a starter profile and on-course logging. Add a CSV import when you get range time. Your AI recommendations improve automatically as more data comes in.
-        </p>
-      </div>
-    </details>
-
-    <details>
-      <summary>
-        <div class="summary-icon" style="background:#e6f9f2;">🎒</div>
-        <span class="summary-text">Setting an Active Bag</span>
-        <span class="chevron">▼</span>
-      </summary>
-      <div class="detail-body">
-        <p>Your active bag tells the app which clubs are in play. Club recommendations, gap analysis, and caddie advice all use clubs from your active bag.</p>
-        <ol>
-          <li>Tap <strong>Equipment</strong> on the home screen.</li>
-          <li>Switch to the <strong>Bags</strong> tab.</li>
-          <li>Tap the bag you want to use.</li>
-          <li>Toggle <strong>"Set as Active Bag."</strong></li>
-        </ol>
-        <p>You can create multiple bags (e.g. course bag, travel set) and switch between them at any time.</p>
-      </div>
-    </details>
-
-    <details>
-      <summary>
-        <div class="summary-icon" style="background:#fff3e6;">📏</div>
-        <span class="summary-text">Setting a Manual Club Distance</span>
-        <span class="chevron">▼</span>
-      </summary>
-      <div class="detail-body">
-        <p>If you don't have launch monitor data for a club — or your measured average doesn't reflect how you're hitting it on the course — you can set a manual carry distance.</p>
-        <ol>
-          <li>Open <strong>Equipment</strong> from the home screen.</li>
-          <li>Find the club in the Club Performance table.</li>
-          <li>Long-press the club row to open the context menu.</li>
-          <li>Tap <strong>"Set Distance Override."</strong></li>
-          <li>Use the slider to set your carry distance and tap <strong>Save Override</strong>.</li>
-        </ol>
-        <p>The club row shows an orange carry distance with a pencil icon when an override is active. Total distance is calculated automatically using a standard rollout factor for that club type.</p>
-        <p>To remove: long-press the club row and tap <strong>"Remove Override"</strong>, or open the override sheet and tap Remove Override at the bottom.</p>
-      </div>
-    </details>
-
-    <details>
-      <summary>
-        <div class="summary-icon" style="background:#e8f0ff;">📄</div>
-        <span class="summary-text">Loading Shots from a CSV</span>
-        <span class="chevron">▼</span>
-      </summary>
-      <div class="detail-body">
-        <p>Looper imports shot data exported from GSPro or other launch monitors as a CSV file.</p>
-        <ol>
-          <li>Export your session CSV from GSPro (or your launch monitor software).</li>
-          <li>Open the <strong>Files</strong> app, locate the CSV, and tap <strong>Share → Looper Golf</strong>. The app opens the upload screen automatically.</li>
-          <li>Alternatively, tap <strong>Sessions</strong> on the home screen, then the <strong>+</strong> button to trigger a file picker.</li>
-        </ol>
-        <p>Once uploaded, the system parses each row, creates a practice session, and makes the data available for analysis, caddie recommendations, and reports.</p>
-        <p style="background:#fff8e6;border:1px solid #f0c040;border-radius:8px;padding:10px 14px;font-size:0.88rem;">
-          ⚠️ <strong>Upload failing?</strong> Email your CSV to <a href="mailto:info@paritygolf.se" style="color:#b07800;font-weight:600;">info@paritygolf.se</a> with your Player ID and we'll load it into your account right away.
-        </p>
-      </div>
-    </details>
-
-    <details>
-      <summary>
-        <div class="summary-icon" style="background:#fff0f0;">✂️</div>
-        <span class="summary-text">What Are Trimmed Shots?</span>
-        <span class="chevron">▼</span>
-      </summary>
-      <div class="detail-body">
-        <p>When calculating your carry distances and club averages, Looper automatically removes statistical outliers — shots far outside your normal range for that club. These are called <strong>trimmed shots</strong>.</p>
-        <p><strong>Why it matters:</strong> A topped ball or shank can wildly skew your average carry distance. Trimming ensures your averages reflect your realistic, repeatable performance — not your worst mishits.</p>
-        <p>You can still see all raw shots in the session detail. Trimmed shots are flagged but not deleted.</p>
-      </div>
-    </details>
-
-    <details>
-      <summary>
-        <div class="summary-icon" style="background:#f0eeff;">🔄</div>
-        <span class="summary-text">Regenerating Sessions with Different Units</span>
-        <span class="chevron">▼</span>
-      </summary>
-      <div class="detail-body">
-        <p>If you imported a CSV with the wrong unit system — for example, yards instead of meters — you can recalculate without re-importing the file.</p>
-        <ol>
-          <li>Tap <strong>Sessions</strong> on the home screen.</li>
-          <li>Tap the session you want to fix.</li>
-          <li>Scroll to the <strong>"Recalculate Units"</strong> section.</li>
-          <li>Choose your correct distance unit (yards or meters) and speed unit (mph or m/s).</li>
-          <li>Tap <strong>Recalculate</strong>.</li>
-        </ol>
-        <p>The system converts all distances and speeds in that session and updates your club averages.</p>
-      </div>
-    </details>
-
-  </div>
-
-  <!-- ON-COURSE -->
-  <div class="section-title">On-Course Features</div>
-  <div class="accordion">
-
-    <details>
-      <summary>
-        <div class="summary-icon" style="background:#e6f9f9;">🗺️</div>
-        <span class="summary-text">Course Strategy &amp; Goal Setting</span>
-        <span class="chevron">▼</span>
-      </summary>
-      <div class="detail-body">
-        <p>Course Strategy turns your performance data into a hole-by-hole game plan for an actual round.</p>
-        <ol>
-          <li>Open <strong>My Caddie → Course Strategy</strong>.</li>
-          <li>Select a course from the list.</li>
-          <li>Enter a score goal (e.g. "85") and choose a goal type (total score or score-to-par).</li>
-          <li>Pick a strategy level: <strong>Conservative</strong>, <strong>Standard</strong>, or <strong>Aggressive</strong>.</li>
-          <li>Tap <strong>Generate Strategy</strong>.</li>
-        </ol>
-        <p>The caddie builds a plan for every hole — recommended clubs off the tee, layup points, hazards to avoid — tailored to your real carry distances and the strategy you chose.</p>
-        <p><strong>Mid-round recalibration:</strong> As you enter actual scores hole-by-hole, the caddie automatically adjusts the remaining holes to keep you on track for your goal.</p>
-      </div>
-    </details>
-
-  </div>
-
-  <!-- COACH IN THE LOOP -->
-  <div class="section-title">Coach in the Loop</div>
-  <div class="accordion">
-
-    <details>
-      <summary>
-        <div class="summary-icon" style="background:#e6f9f2;">🤝</div>
-        <span class="summary-text">Connecting with a Coach (Players)</span>
-        <span class="chevron">▼</span>
-      </summary>
-      <div class="detail-body">
-        <p>Coach in the Loop connects you with a real human golf coach inside the app. Your coach can send personalised notes, assign drills, and build a weekly practice plan — all visible alongside your AI coaching.</p>
-        <ol>
-          <li>Open <strong>My Coach</strong> and tap <strong>"Find a Coach"</strong>.</li>
-          <li>Browse the coach directory — filter by availability, teaching level, or specialty.</li>
-          <li>Tap a coach to view their profile, then tap <strong>Connect</strong>.</li>
-          <li>Your request is sent. The coach will accept or decline.</li>
-        </ol>
-        <p><strong>Receiving an invite:</strong> If your coach sends you an invite by Player ID or email, open My Coach and look for the Coach in the Loop card — your pending invite will appear there.</p>
-        <p><strong>Once connected, your Coach Inbox shows:</strong></p>
-        <ul>
-          <li><strong>Messages</strong> — feedback, progress notes, technique reminders</li>
-          <li><strong>Assignments</strong> — drills and videos your coach has sent you</li>
-          <li><strong>Practice Plan</strong> — your coach's structured weekly plan</li>
-        </ul>
-        <p>The AI coach is aware of your real coach's practice plan and avoids contradicting it.</p>
-      </div>
-    </details>
-
-    <details>
-      <summary>
-        <div class="summary-icon" style="background:#eeeeff;">👨‍🏫</div>
-        <span class="summary-text">Managing Students (Coaches)</span>
-        <span class="chevron">▼</span>
-      </summary>
-      <div class="detail-body">
-        <p>If you're a teaching professional, you can register a coach profile and manage your students directly from the app.</p>
-        <p><strong>Getting started:</strong></p>
-        <ol>
-          <li>Tap the menu (top-right) on the home screen.</li>
-          <li>Tap <strong>"Register as a Coach."</strong></li>
-          <li>Fill in your name, location, teaching levels, specializations, and bio.</li>
-          <li>Use the <strong>"Accepting new students"</strong> toggle to control your directory visibility.</li>
-          <li>Tap <strong>Create Coach Profile</strong>.</li>
-        </ol>
-        <p><strong>From a student's detail screen you can:</strong></p>
-        <ul>
-          <li><strong>Send Note</strong> — feedback, progress notes, or technique reminders</li>
-          <li><strong>Assignment</strong> — pick drills and attach up to 5 video URLs</li>
-          <li><strong>Practice Plan</strong> — set week count, sessions per week, and drill steps</li>
-          <li><strong>Upload Session CSV</strong> — import launch monitor data on behalf of a student</li>
-        </ul>
-        <p>Invite students by <strong>Player ID</strong> (instant connection) or <strong>Email</strong> (pending accept). To remove a student, swipe left on their row in the Coach Hub.</p>
-      </div>
-    </details>
-
-  </div>
-
-  <!-- ALL FEATURES -->
-  <div class="section-title">All Features</div>
-  <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;padding:8px 20px;">
-    <div class="feature-groups">
-      <div class="feature-group">
-        <h4><span class="dot" style="background:#4a90d9;"></span> My Caddie</h4>
-        <ul>
-          <li>Club recommendations by distance, wind, lie &amp; hazards</li>
-          <li>Course strategy with hole-by-hole plans</li>
-          <li>Score goal setting and mid-round recalibration</li>
-          <li>Ask-your-caddie chat with voice input</li>
-        </ul>
-      </div>
-      <div class="feature-group">
-        <h4><span class="dot" style="background:#2ecc71;"></span> My Coach</h4>
-        <ul>
-          <li>AI-generated practice plan based on your weaknesses</li>
-          <li>Coaching library — topics, drills, and videos</li>
-          <li>Swing fault identification</li>
-          <li>Skill progression roadmap</li>
-          <li>Ask-your-coach chat</li>
-          <li>Browse coach directory — filter by specialty, level &amp; availability</li>
-          <li>Coach in the Loop — receive notes, assignments &amp; practice plans from a real coach</li>
-        </ul>
-      </div>
-      <div class="feature-group">
-        <h4><span class="dot" style="background:#5b4fd4;"></span> Coach Dashboard</h4>
-        <ul>
-          <li>Register a coach profile with location, teaching levels &amp; bio</li>
-          <li>Toggle availability — accepting new students on/off</li>
-          <li>Accept or decline student connection requests</li>
-          <li>Invite students by Player ID or email</li>
-          <li>Send notes, build assignments, and create weekly practice plans</li>
-          <li>Upload a student's launch monitor CSV on their behalf</li>
-        </ul>
-      </div>
-      <div class="feature-group">
-        <h4><span class="dot" style="background:#9b59b6;"></span> My Analyst</h4>
-        <ul>
-          <li>Full shot statistics per club</li>
-          <li>Shot shape &amp; dispersion charts</li>
-          <li>Session-to-session comparison</li>
-          <li>PGA Tour benchmark comparison</li>
-          <li>Handicap trend tracking</li>
-          <li>Swing analysis reports</li>
-          <li>Ask-your-analyst chat</li>
-        </ul>
-      </div>
-      <div class="feature-group">
-        <h4><span class="dot" style="background:#e67e22;"></span> Sessions</h4>
-        <ul>
-          <li>View and search all practice sessions</li>
-          <li>Upload shot data from CSV</li>
-          <li>Recalculate units (yards / meters)</li>
-          <li>Delete or compare sessions</li>
-        </ul>
-      </div>
-      <div class="feature-group">
-        <h4><span class="dot" style="background:#95a5a6;"></span> Equipment</h4>
-        <ul>
-          <li>Manage clubs and bags</li>
-          <li>Set your active bag</li>
-          <li>Bag fit score and shaft analysis</li>
-          <li>Club gapping recommendations</li>
-          <li>Manual carry distance override (long-press a club)</li>
-        </ul>
-      </div>
+  <!-- SIDEBAR -->
+  <aside class="help-sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Getting Started</div>
+      <a href="#getting-started">Getting Started</a>
+      <a href="#connecting-launch-monitor">Connecting Your Launch Monitor</a>
+      <a href="#importing-data">Importing Session Data</a>
     </div>
-  </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">AI Coaching</div>
+      <a href="#ai-coach">Using the AI Coach</a>
+      <a href="#ai-caddie">Using the AI Caddie</a>
+      <a href="#ai-analyst">Using the AI Analyst</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Features</div>
+      <a href="#club-recommendations">Club Recommendations</a>
+      <a href="#swing-analysis">Swing Analysis</a>
+      <a href="#progress-tracking">Progress Tracking</a>
+      <a href="#coaching-library">Coaching Library</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">For Coaches</div>
+      <a href="#coach-connect">Connecting to Students</a>
+      <a href="#coach-drills">Assigning Drills</a>
+      <a href="#coach-feedback">Sending Feedback</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Account</div>
+      <a href="#account-settings">Account Settings</a>
+      <a href="#subscription">Subscription</a>
+      <a href="#privacy-data">Privacy &amp; Data</a>
+    </div>
+  </aside>
 
+  <!-- CONTENT -->
+  <main class="help-content">
+
+    <div class="help-topic" id="getting-started">
+      <div class="topic-label">Getting Started</div>
+      <h2>Getting Started</h2>
+      <div class="placeholder">Content coming soon — paste your help text here.</div>
+    </div>
+
+    <div class="help-topic" id="connecting-launch-monitor">
+      <div class="topic-label">Getting Started</div>
+      <h2>Connecting Your Launch Monitor</h2>
+      <div class="placeholder">Content coming soon — paste your help text here.</div>
+    </div>
+
+    <div class="help-topic" id="importing-data">
+      <div class="topic-label">Getting Started</div>
+      <h2>Importing Session Data</h2>
+      <div class="placeholder">Content coming soon — paste your help text here.</div>
+    </div>
+
+    <div class="help-topic" id="ai-coach">
+      <div class="topic-label">AI Coaching</div>
+      <h2>Using the AI Coach</h2>
+      <div class="placeholder">Content coming soon — paste your help text here.</div>
+    </div>
+
+    <div class="help-topic" id="ai-caddie">
+      <div class="topic-label">AI Coaching</div>
+      <h2>Using the AI Caddie</h2>
+      <div class="placeholder">Content coming soon — paste your help text here.</div>
+    </div>
+
+    <div class="help-topic" id="ai-analyst">
+      <div class="topic-label">AI Coaching</div>
+      <h2>Using the AI Analyst</h2>
+      <div class="placeholder">Content coming soon — paste your help text here.</div>
+    </div>
+
+    <div class="help-topic" id="club-recommendations">
+      <div class="topic-label">Features</div>
+      <h2>Club Recommendations</h2>
+      <div class="placeholder">Content coming soon — paste your help text here.</div>
+    </div>
+
+    <div class="help-topic" id="swing-analysis">
+      <div class="topic-label">Features</div>
+      <h2>Swing Analysis</h2>
+      <div class="placeholder">Content coming soon — paste your help text here.</div>
+    </div>
+
+    <div class="help-topic" id="progress-tracking">
+      <div class="topic-label">Features</div>
+      <h2>Progress Tracking</h2>
+      <div class="placeholder">Content coming soon — paste your help text here.</div>
+    </div>
+
+    <div class="help-topic" id="coaching-library">
+      <div class="topic-label">Features</div>
+      <h2>Coaching Library</h2>
+      <div class="placeholder">Content coming soon — paste your help text here.</div>
+    </div>
+
+    <div class="help-topic" id="coach-connect">
+      <div class="topic-label">For Coaches</div>
+      <h2>Connecting to Students</h2>
+      <div class="placeholder">Content coming soon — paste your help text here.</div>
+    </div>
+
+    <div class="help-topic" id="coach-drills">
+      <div class="topic-label">For Coaches</div>
+      <h2>Assigning Drills</h2>
+      <div class="placeholder">Content coming soon — paste your help text here.</div>
+    </div>
+
+    <div class="help-topic" id="coach-feedback">
+      <div class="topic-label">For Coaches</div>
+      <h2>Sending Feedback</h2>
+      <div class="placeholder">Content coming soon — paste your help text here.</div>
+    </div>
+
+    <div class="help-topic" id="account-settings">
+      <div class="topic-label">Account</div>
+      <h2>Account Settings</h2>
+      <div class="placeholder">Content coming soon — paste your help text here.</div>
+    </div>
+
+    <div class="help-topic" id="subscription">
+      <div class="topic-label">Account</div>
+      <h2>Subscription</h2>
+      <div class="placeholder">Content coming soon — paste your help text here.</div>
+    </div>
+
+    <div class="help-topic" id="privacy-data">
+      <div class="topic-label">Account</div>
+      <h2>Privacy &amp; Data</h2>
+      <div class="placeholder">Content coming soon — paste your help text here.</div>
+    </div>
+
+  </main>
 </div>
 
 <!-- FOOTER -->
 <footer>
   <div class="footer-links">
-    <a href="index.html">Home</a>
     <a href="privacy.html">Privacy Policy</a>
+    <a href="help.html">Help</a>
     <a href="mailto:info@paritygolf.se">Support</a>
   </div>
-  <div>&copy; 2025 Parity Golf AB. All rights reserved.</div>
+  <div>&copy; 2025 Parity Golf AB. All rights reserved. Looper is a product of Parity Golf AB, Sweden.</div>
 </footer>
 
 </body>
