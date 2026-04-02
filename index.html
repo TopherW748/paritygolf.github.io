@@ -88,20 +88,6 @@
       color: rgba(255,255,255,0.9);
     }
     .badge-icon { font-size: 1rem; }
-    .appstore-btn {
-      display: inline-flex; align-items: center; gap: 10px;
-      background: rgba(255,255,255,0.15);
-      border: 1.5px solid rgba(255,255,255,0.35);
-      border-radius: 12px;
-      padding: 10px 20px;
-      color: var(--white);
-      text-decoration: none;
-      margin-top: 32px;
-      cursor: default;
-    }
-    .appstore-btn-text { text-align: left; }
-    .appstore-btn-text .coming { font-size: 0.7rem; opacity: 0.75; letter-spacing: 0.5px; display: block; }
-    .appstore-btn-text .store { font-size: 1rem; font-weight: 700; display: block; }
 
     /* ── SECTION COMMON ── */
     section { padding: 72px 5%; }
@@ -125,6 +111,42 @@
       max-width: 580px;
       margin-bottom: 48px;
     }
+
+    /* ── GOALS ── */
+    #goals { background: var(--bg); }
+    .goals-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      margin-top: 12px;
+    }
+    @media (max-width: 680px) { .goals-grid { grid-template-columns: 1fr; } }
+    .goal-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .goal-number {
+      width: 44px; height: 44px;
+      background: var(--green-deep);
+      color: var(--teal);
+      border-radius: 12px;
+      font-size: 1.4rem;
+      font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .goal-card h3 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--green-deep);
+      line-height: 1.3;
+    }
+    .goal-card p { font-size: 0.95rem; color: var(--muted); line-height: 1.65; }
 
     /* ── FEATURES ── */
     #features { background: var(--white); }
@@ -170,57 +192,8 @@
       margin-bottom: 14px;
     }
 
-    /* ── COACHES ── */
-    #coaches { background: var(--white); }
-    .coaches-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 24px;
-      margin-bottom: 48px;
-    }
-    .coach-card {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 28px 24px;
-    }
-    .coach-card .feature-emoji { font-size: 2rem; margin-bottom: 14px; }
-    .coach-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--green-deep); margin-bottom: 8px; }
-    .coach-card p { font-size: 0.92rem; color: var(--muted); }
-    .coach-cta {
-      background: linear-gradient(135deg, var(--green-deep), #1a7a59);
-      border-radius: 16px;
-      padding: 36px 32px;
-      color: var(--white);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-    .coach-cta h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 6px; }
-    .coach-cta p { font-size: 0.92rem; opacity: 0.82; max-width: 480px; }
-    .coach-cta-action { display: flex; flex-direction: column; align-items: center; gap: 8px; }
-    .coach-cta a.btn {
-      display: inline-block;
-      background: var(--teal);
-      color: var(--white);
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 0.9rem;
-      padding: 12px 26px;
-      border-radius: 50px;
-      white-space: nowrap;
-    }
-    .coach-cta a.btn:hover { background: var(--teal-dark); }
-    .coach-cta .cta-email {
-      font-size: 0.82rem;
-      opacity: 0.75;
-      color: var(--white);
-    }
-
     /* ── ABOUT ── */
-    #about { background: var(--bg); }
+    #about { background: var(--white); }
     .about-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -274,10 +247,8 @@
   </a>
   <div class="nav-links">
     <a href="#features">Features</a>
-    <a href="#personas">How It Works</a>
-    <a href="#coaches">For Coaches</a>
+    <a href="#personas">AI Coaches</a>
     <a href="#about">About</a>
-    <a href="help.html">Help</a>
     <a href="#contact">Contact</a>
   </div>
 </nav>
@@ -285,7 +256,7 @@
 <!-- HERO -->
 <section class="hero" id="top">
   <img class="hero-icon" src="assets/looper-icon.png" alt="Looper Golf App icon" />
-  <h1>Better golf,<br /><span>powered by AI</span></h1>
+  <h1>Golf coaching,<br /><span>powered by AI</span></h1>
   <p>Looper analyzes your launch monitor data and delivers personalized coaching, club recommendations, and swing insights — like having a coach in your pocket.</p>
   <div class="hero-badges">
     <span class="badge"><span class="badge-icon">📱</span> iOS App</span>
@@ -293,14 +264,23 @@
     <span class="badge"><span class="badge-icon">🤖</span> AI-Powered</span>
     <span class="badge"><span class="badge-icon">🏌️</span> Personalized</span>
   </div>
-  <div>
-    <span class="appstore-btn">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-      <span class="appstore-btn-text">
-        <span class="coming">Coming Soon on</span>
-        <span class="store">App Store</span>
-      </span>
-    </span>
+</section>
+
+<!-- GOALS -->
+<section id="goals">
+  <div class="section-label">Why Looper Exists</div>
+  <h2>Two goals that change your game</h2>
+  <div class="goals-grid">
+    <div class="goal-card">
+      <div class="goal-number">1</div>
+      <h3>Know exactly what club to hit — every time</h3>
+      <p>Looper builds a personalised yardage profile for every club in your bag from your own launch monitor data. On the course, tell it the distance, wind, elevation, lie, or conditions — and it gives you a confident recommendation based on how <em>you</em> actually hit the ball, not a generic chart.</p>
+    </div>
+    <div class="goal-card">
+      <div class="goal-number">2</div>
+      <h3>Improve through coaching built on your own data</h3>
+      <p>Looper analyses your shot patterns to identify what's genuinely holding you back — then points you to specific drills and videos to fix it. The result: real improvements in accuracy, consistency, and distance, grounded in your game rather than generic advice.</p>
+    </div>
   </div>
 </section>
 
@@ -367,55 +347,6 @@
   </div>
 </section>
 
-<!-- FOR COACHES -->
-<section id="coaches">
-  <div class="section-label">For Golf Professionals</div>
-  <h2>Connect with your students through Looper</h2>
-  <p class="section-intro">Looper isn't just for solo golfers. Real coaches can link directly to their students' accounts to monitor progress, assign drills, and deliver feedback — remotely or in person.</p>
-  <div class="coaches-grid">
-    <div class="coach-card">
-      <div class="feature-emoji">🔗</div>
-      <h3>Connect to Students</h3>
-      <p>Students invite you to their Looper account with a simple code. Once connected, you have a live view of their practice data and session history.</p>
-    </div>
-    <div class="coach-card">
-      <div class="feature-emoji">📋</div>
-      <h3>Review Session Data</h3>
-      <p>See exactly what your student hit on the range — ball speed, spin, carry, dispersion — without needing to be there in person.</p>
-    </div>
-    <div class="coach-card">
-      <div class="feature-emoji">🏋️</div>
-      <h3>Assign Drills</h3>
-      <p>Push specific drills and practice tasks directly to your student's app. They show up in their coaching queue ready to follow.</p>
-    </div>
-    <div class="coach-card">
-      <div class="feature-emoji">📬</div>
-      <h3>Send Feedback</h3>
-      <p>Leave notes and observations on sessions. Students get your feedback in context — tied to the specific shots or trends you're commenting on.</p>
-    </div>
-    <div class="coach-card">
-      <div class="feature-emoji">📈</div>
-      <h3>Track Progress Over Time</h3>
-      <p>See how your students improve across weeks and months. Trend charts show you whether your coaching is moving the needle.</p>
-    </div>
-    <div class="coach-card">
-      <div class="feature-emoji">👥</div>
-      <h3>Manage Multiple Students</h3>
-      <p>Switch between students from a single coach dashboard. Each student's data is kept separate and private.</p>
-    </div>
-  </div>
-  <div class="coach-cta">
-    <div>
-      <h3>Are you a golf coach?</h3>
-      <p>Get early access to the Looper Coach dashboard — designed to make remote coaching and student monitoring simple and data-driven.</p>
-    </div>
-    <div class="coach-cta-action">
-      <a class="btn" href="mailto:paritygolfab@gmail.com?subject=Coach%20Access%20Request">Get in touch</a>
-      <span class="cta-email">paritygolfab@gmail.com</span>
-    </div>
-  </div>
-</section>
-
 <!-- ABOUT -->
 <section id="about">
   <div class="section-label">The Company</div>
@@ -458,7 +389,7 @@
 <footer>
   <div class="footer-links">
     <a href="privacy.html">Privacy Policy</a>
-    <a href="help.html">Help</a>
+    <a href="terms.html">Terms of Use</a>
     <a href="mailto:info@paritygolf.se">Support</a>
   </div>
   <div>&copy; 2025 Parity Golf AB. All rights reserved. Looper is a product of Parity Golf AB, Sweden.</div>
