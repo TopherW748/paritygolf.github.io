@@ -219,18 +219,6 @@
     .contact-row a:hover { text-decoration: underline; }
     .contact-icon { font-size: 1.1rem; }
 
-    /* ── FOOTER ── */
-    footer {
-      background: #091f18;
-      color: rgba(255,255,255,0.45);
-      text-align: center;
-      padding: 24px 5%;
-      font-size: 0.82rem;
-    }
-    footer a { color: rgba(255,255,255,0.55); text-decoration: none; }
-    footer a:hover { color: var(--teal); }
-    .footer-links { margin-bottom: 8px; display: flex; justify-content: center; gap: 20px; }
-
     /* ── APP STORE BUTTON ── */
     .appstore-btn {
       display: inline-flex; align-items: center; gap: 10px;
@@ -252,9 +240,95 @@
     .appstore-btn-text span:first-child { font-size: 0.68rem; font-weight: 400; opacity: 0.85; letter-spacing: 0.3px; }
     .appstore-btn-text span:last-child  { font-size: 1rem; font-weight: 700; }
 
+    /* ── SCREENSHOT SHOWCASE ── */
+    #screenshot { background: var(--green-deep); color: var(--white); }
+    #screenshot h2 { color: var(--white); }
+    #screenshot .section-label { color: var(--teal); }
+    .showcase-wrap {
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      gap: 56px;
+      align-items: center;
+    }
+    .showcase-text p {
+      color: rgba(255,255,255,0.75);
+      font-size: 1.05rem;
+      max-width: 480px;
+      margin-bottom: 28px;
+    }
+    .showcase-bullets {
+      list-style: none;
+      margin-bottom: 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+    }
+    .showcase-bullets li {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 0.97rem; color: rgba(255,255,255,0.85);
+      line-height: 1.5;
+    }
+    .showcase-bullets li::before {
+      content: "✓";
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--teal);
+      color: var(--green-deep);
+      font-size: 0.72rem; font-weight: 900;
+      margin-top: 1px;
+    }
+    .phone-wrap {
+      display: flex; justify-content: center; align-items: flex-end;
+    }
+    .phone-frame {
+      background: #0f0f0f;
+      border-radius: 42px;
+      padding: 10px;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.55), inset 0 0 0 1.5px rgba(255,255,255,0.1);
+      width: 220px; flex-shrink: 0;
+    }
+    .phone-frame img { width: 100%; border-radius: 34px; display: block; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #091f18;
+      color: rgba(255,255,255,0.45);
+      text-align: center;
+      padding: 28px 5%;
+      font-size: 0.82rem;
+    }
+    footer a { color: rgba(255,255,255,0.55); text-decoration: none; }
+    footer a:hover { color: var(--teal); }
+    .footer-links {
+      margin-bottom: 10px;
+      display: flex; justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px 20px;
+    }
+
     /* ── RESPONSIVE NAV ── */
     @media (max-width: 520px) {
       .nav-links { display: none; }
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 680px) {
+      section { padding: 52px 6%; }
+      .hero { padding: 56px 6% 48px; }
+      .hero-icon { width: 88px; height: 88px; border-radius: 20px; }
+      .goal-card { padding: 24px 20px; }
+      .feature-card { padding: 22px 18px; }
+      .showcase-wrap {
+        grid-template-columns: 1fr;
+        gap: 36px;
+        text-align: center;
+      }
+      .showcase-bullets li { justify-content: flex-start; text-align: left; }
+      .showcase-text p { max-width: 100%; }
+      .phone-wrap { order: -1; }
+      .phone-frame { width: 190px; }
+      .footer-links { gap: 10px 14px; }
     }
   </style>
 </head>
@@ -363,6 +437,37 @@
       <div class="feature-emoji">👨‍🏫</div>
       <h3>Coach in the Loop</h3>
       <p>Human coaches can connect to their students through Looper to review data, send drills, and monitor progress remotely.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SCREENSHOT SHOWCASE -->
+<section id="screenshot">
+  <div class="section-label">See It In Action</div>
+  <div class="showcase-wrap">
+    <div class="showcase-text">
+      <h2>Your caddie,<br/>always on the bag</h2>
+      <p>Real-time GPS course maps for over 40,000 courses. Looper shows front, pin, and back distances to every green, highlights hazards and doglegs, and builds a hole-by-hole strategy based on how far <em>you</em> actually carry the ball.</p>
+      <ul class="showcase-bullets">
+        <li>Live GPS distance to any green — front, pin &amp; back</li>
+        <li>Hole-by-hole round plan built from your real carry data</li>
+        <li>Wind and hazard-aware club tip for each shot</li>
+        <li>Recalibrates automatically as you play</li>
+      </ul>
+      <a class="appstore-btn" href="https://apps.apple.com/us/app/looper-golf/id6759972833" target="_blank" rel="noopener">
+        <svg width="20" height="20" viewBox="0 0 814 1000" fill="white" xmlns="http://www.w3.org/2000/svg">
+          <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-37.3-155.5-127.4C46.5 790.9 0 686.7 0 586.3c0-168.6 110.2-257.9 218.7-257.9 77.7 0 142.1 51.4 189.6 51.4 45.5 0 117.3-54.4 207.2-54.4zm-120.3-174.1c37.5-45.2 64.4-107.9 64.4-170.6 0-8.9-.6-17.9-2.2-25.5-61 2.2-134.7 40.8-178.3 91.1-35.3 40.8-69.3 103.5-69.3 167.2 0 9.5 1.6 19.1 2.2 22.3 3.8.6 9.5 1.3 15.2 1.3 55.4 0 125.1-37.5 167.9-85.8z"/>
+        </svg>
+        <span class="appstore-btn-text">
+          <span>Download on the</span>
+          <span>App Store</span>
+        </span>
+      </a>
+    </div>
+    <div class="phone-wrap">
+      <div class="phone-frame">
+        <img src="assets/course-map.png" alt="Looper Golf GPS course map on iPhone" />
+      </div>
     </div>
   </div>
 </section>
