@@ -184,6 +184,14 @@
       width: 9px; height: 9px; border-radius: 50%; display: inline-block;
     }
 
+    /* GROUP HEADERS */
+    .group-header {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--muted);
+      margin: 28px 0 10px;
+    }
+    .group-header:first-child { margin-top: 0; }
+
     /* FOOTER */
     footer {
       background: #091f18;
@@ -234,11 +242,12 @@
     </p>
   </div>
 
-  <!-- GETTING STARTED -->
-  <div class="section-title">Getting Started</div>
   <div class="accordion">
 
-    <details open>
+  <!-- ── GETTING STARTED ─────────────────────────────────── -->
+  <div class="group-header">Getting Started</div>
+
+    <details>
       <summary>
         <div class="summary-icon" style="background:#e8f4ff;">📥</div>
         <span class="summary-text">Getting Your Data In</span>
@@ -281,7 +290,15 @@
             </div>
           </div>
           <div class="data-path">
-            <div class="path-num" style="background:#eeecff;color:#4a3ab0;">5</div>
+            <div class="path-num" style="background:#e6f9f2;color:#0a7a50;">5</div>
+            <div>
+              <h4>Import from TrackMan via screenshots <span class="badge" style="background:#e6f9f2;color:#0a7a50;">No Export Needed</span></h4>
+              <p>Take screenshots of your TrackMan table view — Vision AI reads every shot automatically (~30 sec per club). No CSV export required.</p>
+              <span class="howto">Sessions → + → TrackMan tab</span>
+            </div>
+          </div>
+          <div class="data-path">
+            <div class="path-num" style="background:#eeecff;color:#4a3ab0;">6</div>
             <div>
               <h4>Have your coach upload data for you</h4>
               <p>If you work with a coach using Looper, they can import your launch monitor CSV directly into your account from their Coach Dashboard.</p>
@@ -293,6 +310,9 @@
         </p>
       </div>
     </details>
+
+    <!-- ── EQUIPMENT ────────────────────────────────────────── -->
+    <div class="group-header">Equipment</div>
 
     <details>
       <summary>
@@ -308,6 +328,7 @@
           <li>Tap the bag you want to use.</li>
           <li>Toggle <strong>"Set as Active Bag."</strong></li>
         </ol>
+        <p><strong>Quick shortcut:</strong> Long-press any bag row to set or remove it as your active bag without opening the detail screen.</p>
         <p>You can create multiple bags (e.g. course bag, travel set) and switch between them at any time.</p>
       </div>
     </details>
@@ -319,7 +340,7 @@
         <span class="chevron">▼</span>
       </summary>
       <div class="detail-body">
-        <p>If you don't have launch monitor data for a club — or your measured average doesn't reflect how you're hitting it on the course — you can set a manual carry distance.</p>
+        <p>If you don't have launch monitor data for a club — or your measured average doesn't reflect how you're hitting it on the course — you can set a manual carry distance. The caddie advisor will use that distance instead of your session averages.</p>
         <ol>
           <li>Open <strong>Equipment</strong> from the home screen.</li>
           <li>Find the club in the Club Performance table.</li>
@@ -327,10 +348,13 @@
           <li>Tap <strong>"Set Distance Override."</strong></li>
           <li>Use the slider to set your carry distance and tap <strong>Save Override</strong>.</li>
         </ol>
-        <p>The club row shows an orange carry distance with a pencil icon when an override is active. Total distance is calculated automatically using a standard rollout factor for that club type.</p>
+        <p>The club row shows an orange carry distance with a pencil icon when an override is active. Total distance is calculated automatically using a standard rollout factor for that club type (e.g. Driver ×1.12, 7-iron ×1.05).</p>
         <p>To remove: long-press the club row and tap <strong>"Remove Override"</strong>, or open the override sheet and tap Remove Override at the bottom.</p>
       </div>
     </details>
+
+    <!-- ── SESSION DATA ─────────────────────────────────────── -->
+    <div class="group-header">Session Data</div>
 
     <details>
       <summary>
@@ -349,6 +373,75 @@
         <p style="background:#fff8e6;border:1px solid #f0c040;border-radius:8px;padding:10px 14px;font-size:0.88rem;">
           ⚠️ <strong>Upload failing?</strong> Email your CSV to <a href="mailto:info@paritygolf.se" style="color:#b07800;font-weight:600;">info@paritygolf.se</a> with your Player ID and we'll load it into your account right away.
         </p>
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <div class="summary-icon" style="background:#e6f9f2;">📸</div>
+        <span class="summary-text">Importing from TrackMan (Screenshot Import)</span>
+        <span class="chevron">▼</span>
+      </summary>
+      <div class="detail-body">
+        <p>Looper can read your TrackMan data directly from screenshots — no CSV export needed. Vision AI scans the table and extracts every shot (~30 seconds per club).</p>
+        <h4 style="margin:12px 0 6px;">How to capture shots for one club</h4>
+        <ol>
+          <li>In the TrackMan app, open the <strong>table view</strong> for that club (e.g. Driver).</li>
+          <li>Take a screenshot — you'll see columns like Carry, Total, Ball Speed, Height.</li>
+          <li>Scroll the table <strong>right</strong> and take another screenshot — you'll see Launch Angle, Launch Dir., Carry Side.</li>
+          <li>To capture more shots in the same club: scroll <strong>down</strong> to the next group of shots, screenshot, scroll right, screenshot. Repeat until all shots are captured. <strong>There's no limit.</strong></li>
+          <li>Repeat steps 1–4 for each club you want to import.</li>
+        </ol>
+        <h4 style="margin:12px 0 6px;">Importing in Looper</h4>
+        <ol>
+          <li>Tap <strong>Sessions → + → TrackMan</strong> tab.</li>
+          <li>Select all screenshots for one club (up to 6 at a time), then tap <strong>Import</strong>.</li>
+          <li>Analysis runs in the background — a banner shows progress while it processes.</li>
+          <li>Repeat for each additional club without dismissing the sheet.</li>
+        </ol>
+        <p style="margin-top:10px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-size:0.85rem;">
+          💡 <strong>Tip:</strong> Club names are read from the TrackMan badge automatically (e.g. "7I" → 7-Iron, "3W" → 3-Wood). Make sure the club badge is visible in at least one screenshot per club.
+        </p>
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <div class="summary-icon" style="background:#f0eaff;">📤</div>
+        <span class="summary-text">Share a Screenshot Directly from Any App</span>
+        <span class="chevron">▼</span>
+      </summary>
+      <div class="detail-body">
+        <p>Looper appears in the iOS share sheet so you can send a launch monitor screenshot directly without leaving the app you're in.</p>
+        <h4 style="margin:12px 0 6px;">How to use it</h4>
+        <ol>
+          <li>Take a screenshot on your phone (or open one in Photos, TrackMan, etc.).</li>
+          <li>Tap <strong>Share</strong> → scroll through the app icons → tap <strong>Looper Golf</strong>.</li>
+          <li>The import screen opens automatically with your screenshot loaded.</li>
+        </ol>
+        <h4 style="margin:12px 0 6px;">From the screenshot preview</h4>
+        <ol>
+          <li>Take a screenshot.</li>
+          <li>Tap the small preview in the <strong>bottom-left corner</strong> before it disappears.</li>
+          <li>Tap the share icon (top right) → <strong>Looper Golf</strong>.</li>
+        </ol>
+        <p>If Looper is already processing a previous screenshot, your new one is queued and starts automatically when the current import finishes.</p>
+        <p><strong>Supported sources:</strong> Any app that lets you share an image — TrackMan, FlightScope, Garmin, Photos, Files, and more.</p>
+        <p style="margin-top:10px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-size:0.85rem;">
+          💡 <strong>Tip:</strong> For TrackMan, take two screenshots per club — one showing Carry/Total/Ball Speed columns, then scroll the table right and take another showing Launch Angle/Direction/Side. Import them together for full data extraction.
+        </p>
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <div class="summary-icon" style="background:#fff3e6;">⚠️</div>
+        <span class="summary-text">Launch Monitor Data Not Loading?</span>
+        <span class="chevron">▼</span>
+      </summary>
+      <div class="detail-body">
+        <p>Not all launch monitor configurations are currently supported. If you have trouble loading your data, we'd love to help.</p>
+        <p>Email your CSV file to <a href="mailto:info@paritygolf.se" style="color:var(--teal-dark);font-weight:600;">info@paritygolf.se</a> and include your <strong>Player ID</strong> (found in your Profile — looks like <code>P_123456</code>). We'll do our best to add support for your setup.</p>
       </div>
     </details>
 
@@ -384,39 +477,11 @@
       </div>
     </details>
 
-  </div>
 
-  <!-- ON-COURSE -->
-  <div class="section-title">On-Course Features</div>
-  <div class="accordion">
+    <!-- ── PLAYERS & ACCOUNTS ─────────────────────────────────── -->
+    <div class="group-header">Players &amp; Accounts</div>
 
     <details>
-      <summary>
-        <div class="summary-icon" style="background:#e6f9f9;">🗺️</div>
-        <span class="summary-text">Course Strategy &amp; Goal Setting</span>
-        <span class="chevron">▼</span>
-      </summary>
-      <div class="detail-body">
-        <p>Course Strategy turns your performance data into a hole-by-hole game plan for an actual round.</p>
-        <ol>
-          <li>Open <strong>My Caddie → Course Strategy</strong>.</li>
-          <li>Select a course from the list.</li>
-          <li>Enter a score goal (e.g. "85") and choose a goal type (total score or score-to-par).</li>
-          <li>Pick a strategy level: <strong>Conservative</strong>, <strong>Standard</strong>, or <strong>Aggressive</strong>.</li>
-          <li>Tap <strong>Generate Strategy</strong>.</li>
-        </ol>
-        <p>The caddie builds a plan for every hole — recommended clubs off the tee, layup points, hazards to avoid — tailored to your real carry distances and the strategy you chose.</p>
-        <p><strong>Mid-round recalibration:</strong> As you enter actual scores hole-by-hole, the caddie automatically adjusts the remaining holes to keep you on track for your goal.</p>
-      </div>
-    </details>
-
-  </div>
-
-  <!-- PLAYERS & ACCOUNTS -->
-  <div class="section-title">Players &amp; Accounts</div>
-  <div class="accordion">
-
-    <details open>
       <summary>
         <div class="summary-icon" style="background:#e6f9f2;">👥</div>
         <span class="summary-text">One Account, Multiple Players — How It Works</span>
@@ -491,30 +556,108 @@
       </div>
     </details>
 
-  </div>
+    <!-- ── ON THE COURSE ──────────────────────────────────────── -->
+    <div class="group-header">On the Course</div>
 
-  <!-- COACH IN THE LOOP -->
-  <div class="section-title">Coach in the Loop</div>
-  <div class="accordion">
+    <details>
+      <summary>
+        <div class="summary-icon" style="background:#e6f9f9;">🗺️</div>
+        <span class="summary-text">Golf Round — Course Planning</span>
+        <span class="chevron">▼</span>
+      </summary>
+      <div class="detail-body">
+        <p>Golf Round (inside My Caddie) turns your performance data into a hole-by-hole game plan for an actual round.</p>
+        <ol>
+          <li>Open <strong>My Caddie → Golf Round</strong>.</li>
+          <li>Select a course from the list.</li>
+          <li>Set conditions (wind, temperature), your score goal, and play style.</li>
+          <li>Tap <strong>Create Round Strategy</strong>.</li>
+        </ol>
+        <p>The caddie builds a plan for every hole — recommended clubs off the tee, layup points, hazards to avoid — tailored to your real carry distances and the strategy you chose.</p>
+        <p><strong>From the bottom of the screen once a strategy is ready:</strong></p>
+        <ul>
+          <li><strong>Course Map</strong> — satellite view of the course with tee, green, bunker and water overlays. Tap any feature for GPS distance and a club recommendation.</li>
+          <li><strong>Scorecard</strong> — hole-by-hole score entry, shot logging, and mid-round recalibration.</li>
+        </ul>
+        <p><strong>Mid-round recalibration:</strong> As you enter actual scores hole-by-hole, the caddie automatically adjusts the remaining holes to keep you on track for your goal.</p>
+        <p style="margin-top:10px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-size:0.85rem;">
+          💡 <strong>Tip:</strong> Long-press any hole in the strategy list to jump straight to that hole's detailed strategy breakdown.
+        </p>
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <div class="summary-icon" style="background:#e6f9f2;">📍</div>
+        <span class="summary-text">Course Map &amp; GPS Club Advisor</span>
+        <span class="chevron">▼</span>
+      </summary>
+      <div class="detail-body">
+        <p>The Course Map is a satellite view of the course with every feature overlaid — tees, greens, bunkers, water, and landing zones. With Live GPS active, tap any feature to instantly get your distance to it and a personalised club recommendation.</p>
+        <h4 style="margin:12px 0 6px;">Opening the map</h4>
+        <ul>
+          <li>From <strong>Golf Round → tap Course Map</strong> (bottom of screen).</li>
+          <li>From the <strong>Scorecard toolbar → tap the map icon</strong> (opens focused on your current hole).</li>
+        </ul>
+        <h4 style="margin:12px 0 6px;">Reading the map</h4>
+        <p>🔵 Tee &nbsp; 🟢 Green &nbsp; 🔵 Water &nbsp; 🟡 Bunker &nbsp; ⚪ LZ (landing zone) — green arrows show the tee shot direction.</p>
+        <h4 style="margin:12px 0 6px;">Getting distances and club advice</h4>
+        <ol>
+          <li>Tap <strong>Live</strong> (top right) to enable GPS — your position appears as a blue dot.</li>
+          <li>Tap any green, LZ, bunker, or water feature.</li>
+          <li>An info card appears showing distance from your position and elevation change.</li>
+          <li>Tap the green button (e.g. "Club for this LZ") to ask the AI Caddie.</li>
+        </ol>
+        <p>The recommendation uses your real carry distances, current wind, elevation change (uphill/downhill), and any known shot tendencies.</p>
+        <p><strong>Elevation:</strong> When the target is uphill or downhill, the card shows the elevation difference in orange (e.g. ▲ 9m). This is factored into the club recommendation automatically — the "Playing as" line in the response shows the combined effect.</p>
+        <p style="margin-top:10px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-size:0.85rem;">
+          💡 <strong>Battery:</strong> Live GPS mode auto-reverts to overview after 3 minutes of inactivity. Tap Live again to re-enable.
+        </p>
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <div class="summary-icon" style="background:#e0f7f4;">🎯</div>
+        <span class="summary-text">GPS Rangefinder</span>
+        <span class="chevron">▼</span>
+      </summary>
+      <div class="detail-body">
+        <p>The GPS Rangefinder gives you real-time distance to the green from wherever you are on the course — no laser needed.</p>
+        <ol>
+          <li>Open <strong>My Caddie</strong> and tap the <strong>Rangefinder</strong> (scope icon) in the tool strip.</li>
+          <li>Select your course and tee.</li>
+          <li>The app locks onto your GPS position and shows distances to the <strong>front, centre, and back</strong> of the green.</li>
+        </ol>
+        <p><strong>Auto hole selection:</strong> The Rangefinder picks the most likely hole based on your position. Tap the hole number to override it manually.</p>
+        <p><strong>Landing zone &amp; dogleg distances:</strong> If the hole has a landing zone or dogleg, those distances appear below the green distance — only when they're still ahead of you.</p>
+        <p><strong>Continuous GPS:</strong> Location updates automatically every ~15 metres. Tap the GPS icon (top-right) to force a fresh fix.</p>
+        <p><strong>Open AI Caddie from Rangefinder:</strong> Tap "Golf Round" at the bottom of the Rangefinder screen to jump straight into the Golf Round strategy view.</p>
+        <p><strong>Battery:</strong> Uses a 15-metre distance filter — significantly more efficient than navigation GPS.</p>
+      </div>
+    </details>
+
+    <!-- ── COACHING ───────────────────────────────────────────── -->
+    <div class="group-header">Coaching</div>
 
     <details>
       <summary>
         <div class="summary-icon" style="background:#e6f9f2;">🤝</div>
-        <span class="summary-text">Connecting with a Coach (Players)</span>
+        <span class="summary-text">Coach in the Loop — Connecting with a Coach</span>
         <span class="chevron">▼</span>
       </summary>
       <div class="detail-body">
         <p>Coach in the Loop connects you with a real human golf coach inside the app. Your coach can send personalised notes, assign drills, and build a weekly practice plan — all visible alongside your AI coaching.</p>
         <ol>
-          <li>Open <strong>My Coach</strong> and tap <strong>"Find a Coach"</strong>.</li>
-          <li>Browse the coach directory — filter by availability, teaching level, or specialty.</li>
+          <li>Open <strong>My Coach</strong> and tap <strong>"Find a Coach"</strong> (or the Coach in the Loop card).</li>
+          <li>Browse the coach directory — filter by accepting status, teaching level, or specialty.</li>
           <li>Tap a coach to view their profile, then tap <strong>Connect</strong>.</li>
           <li>Your request is sent. The coach will accept or decline.</li>
         </ol>
         <p><strong>Receiving an invite:</strong> If your coach sends you an invite by Player ID or email, open My Coach and look for the Coach in the Loop card — your pending invite will appear there.</p>
         <p><strong>Once connected, your Coach Inbox shows:</strong></p>
         <ul>
-          <li><strong>Messages</strong> — feedback, progress notes, technique reminders</li>
+          <li><strong>Messages</strong> — feedback, progress notes, technique reminders (red badge shows unread count)</li>
           <li><strong>Assignments</strong> — drills and videos your coach has sent you</li>
           <li><strong>Practice Plan</strong> — your coach's structured weekly plan</li>
         </ul>
@@ -525,11 +668,11 @@
     <details>
       <summary>
         <div class="summary-icon" style="background:#eeeeff;">👨‍🏫</div>
-        <span class="summary-text">Managing Students (Coaches)</span>
+        <span class="summary-text">Coach in the Loop — Managing Students (Coaches)</span>
         <span class="chevron">▼</span>
       </summary>
       <div class="detail-body">
-        <p>If you're a teaching professional, you can register a coach profile and manage your students directly from the app.</p>
+        <p>If you're a PGA pro or teaching professional, you can register a coach profile and manage your students directly from the app.</p>
         <p><strong>Getting started:</strong></p>
         <ol>
           <li>Tap the menu (top-right) on the home screen.</li>
@@ -549,6 +692,36 @@
       </div>
     </details>
 
+    <!-- ── TIPS & SHORTCUTS ──────────────────────────────────── -->
+    <div class="group-header">Tips &amp; Shortcuts</div>
+
+    <details>
+      <summary>
+        <div class="summary-icon" style="background:#e0f7f4;">👆</div>
+        <span class="summary-text">Gestures &amp; Shortcuts</span>
+        <span class="chevron">▼</span>
+      </summary>
+      <div class="detail-body">
+        <p>Looper uses swipe and long-press gestures throughout the app so you can manage your data quickly.</p>
+        <p><strong>Swipe to delete:</strong></p>
+        <ul>
+          <li>Sessions — swipe left on any session row to delete it.</li>
+          <li>Rounds — swipe left on any round row to delete it.</li>
+          <li>Clubs in a bag — swipe left on a club row inside a bag to remove it.</li>
+        </ul>
+        <p><strong>Swipe to edit:</strong></p>
+        <ul>
+          <li>Rounds — swipe right on a round row to edit scores, course, or date.</li>
+        </ul>
+        <p><strong>Long-press shortcuts:</strong></p>
+        <ul>
+          <li>Club row (Equipment) — set or remove a manual carry distance override.</li>
+          <li>Bag row (Equipment → Bags) — set or remove it as your active bag.</li>
+          <li>Hole row (Golf Round) — jump to that hole's detailed strategy breakdown.</li>
+        </ul>
+      </div>
+    </details>
+
   </div>
 
   <!-- ALL FEATURES -->
@@ -560,7 +733,9 @@
         <ul>
           <li>Club recommendations by distance, wind, lie &amp; hazards</li>
           <li>Course strategy with hole-by-hole plans</li>
-          <li>Score goal setting and mid-round recalibration</li>
+          <li>Course Map — satellite view with GPS distances and club advice</li>
+          <li>Scorecard — hole-by-hole score entry and mid-round recalibration</li>
+          <li>GPS Rangefinder with auto hole selection</li>
           <li>Ask-your-caddie chat with voice input</li>
         </ul>
       </div>
@@ -603,7 +778,8 @@
         <h4><span class="dot" style="background:#e67e22;"></span> Sessions</h4>
         <ul>
           <li>View and search all practice sessions</li>
-          <li>Upload shot data from CSV</li>
+          <li>Upload shot data from CSV or share directly from any app</li>
+          <li>Import TrackMan data via screenshots — no export needed</li>
           <li>Recalculate units (yards / meters)</li>
           <li>Delete or compare sessions</li>
         </ul>
