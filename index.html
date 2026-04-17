@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Looper Golf — AI-Powered Golf Companion</title>
-  <meta name="description" content="Looper Golf is an AI-powered golf app that helps you improve your game with personalized insights, club recommendations, and swing analysis." />
+  <meta name="description" content="Looper Golf is an AI-powered golf app that helps you improve your game with personalized insights, club recommendations, swing analysis, and on-course GPS caddie." />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -71,7 +71,7 @@
       margin-top: 18px;
       font-size: clamp(1rem, 2vw, 1.2rem);
       color: rgba(255,255,255,0.82);
-      max-width: 540px;
+      max-width: 560px;
       margin-left: auto; margin-right: auto;
     }
     .hero-badges {
@@ -148,6 +148,123 @@
     }
     .goal-card p { font-size: 0.95rem; color: var(--muted); line-height: 1.65; }
 
+    /* ── COURSE MAP SHOWCASE ── */
+    #course-map {
+      background: var(--green-deep);
+      color: var(--white);
+      overflow: hidden;
+    }
+    #course-map .section-label { color: var(--teal); }
+    #course-map h2 { color: var(--white); }
+    .map-showcase {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: center;
+      margin-top: 8px;
+    }
+    @media (max-width: 780px) {
+      .map-showcase { grid-template-columns: 1fr; }
+      .map-phone-wrap { order: -1; }
+    }
+    .map-text p {
+      color: rgba(255,255,255,0.78);
+      margin-bottom: 20px;
+      font-size: 1.0rem;
+      line-height: 1.7;
+    }
+    .map-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+      margin-top: 28px;
+    }
+    .map-bullets li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.5;
+    }
+    .map-bullets li .bullet-icon {
+      flex-shrink: 0;
+      width: 28px; height: 28px;
+      background: rgba(0,201,167,0.18);
+      border: 1px solid rgba(0,201,167,0.35);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem;
+      margin-top: 1px;
+    }
+    /* Phone frame */
+    .map-phone-wrap {
+      display: flex;
+      justify-content: center;
+    }
+    .phone-frame {
+      position: relative;
+      width: min(280px, 72vw);
+      background: #111;
+      border-radius: 44px;
+      padding: 14px 10px;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.08);
+    }
+    .phone-notch {
+      position: absolute;
+      top: 14px; left: 50%;
+      transform: translateX(-50%);
+      width: 90px; height: 28px;
+      background: #111;
+      border-radius: 0 0 18px 18px;
+      z-index: 2;
+    }
+    .phone-screen {
+      border-radius: 34px;
+      overflow: hidden;
+      background: #1a2e1e;
+      aspect-ratio: 9/19.5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .phone-screen img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    /* Placeholder when screenshot not yet added */
+    .phone-screen-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 24px;
+      text-align: center;
+      color: rgba(255,255,255,0.4);
+      font-size: 0.8rem;
+    }
+    .phone-screen-placeholder .placeholder-map {
+      width: 100%;
+      background: #1e3d2a;
+      border-radius: 8px;
+      padding: 20px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .placeholder-ring {
+      width: 80px; height: 80px;
+      border: 2px dashed rgba(0,201,167,0.4);
+      border-radius: 50%;
+      margin: 0 auto;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem;
+    }
+
     /* ── FEATURES ── */
     #features { background: var(--white); }
     .features-grid {
@@ -163,7 +280,13 @@
     }
     .feature-emoji { font-size: 2rem; margin-bottom: 14px; }
     .feature-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--green-deep); margin-bottom: 8px; }
-    .feature-card p { font-size: 0.92rem; color: var(--muted); }
+    .feature-card p { font-size: 0.92rem; color: var(--muted); line-height: 1.6; }
+    .feature-card.highlight {
+      background: var(--green-deep);
+      border-color: transparent;
+    }
+    .feature-card.highlight h3 { color: var(--teal); }
+    .feature-card.highlight p { color: rgba(255,255,255,0.75); }
 
     /* ── PERSONAS ── */
     #personas { background: var(--bg); }
@@ -181,7 +304,7 @@
     .persona-card.caddie { background: linear-gradient(135deg, #0D3B2E, #145740); }
     .persona-card.analyst{ background: linear-gradient(135deg, #00A88C, #007A68); }
     .persona-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
-    .persona-card p { font-size: 0.9rem; opacity: 0.85; }
+    .persona-card p { font-size: 0.9rem; opacity: 0.85; line-height: 1.6; }
     .persona-tag {
       display: inline-block;
       background: rgba(255,255,255,0.18);
@@ -342,6 +465,7 @@
   </a>
   <div class="nav-links">
     <a href="#features">Features</a>
+    <a href="#course-map">Course Map</a>
     <a href="#personas">AI Coaches</a>
     <a href="#about">About</a>
     <a href="roadmap.html">Roadmap</a>
@@ -355,12 +479,12 @@
 <section class="hero" id="top">
   <img class="hero-icon" src="assets/looper-icon.png" alt="Looper Golf App icon" />
   <h1>Golf coaching,<br /><span>powered by AI</span></h1>
-  <p>Looper analyzes your launch monitor data and delivers personalized coaching, club recommendations, and swing insights — like having a coach in your pocket.</p>
+  <p>Looper analyzes your launch monitor data and delivers personalized coaching, club recommendations, and on-course caddie intelligence — all in one app.</p>
   <div class="hero-badges">
     <span class="badge"><span class="badge-icon">📱</span> iOS App</span>
     <span class="badge"><span class="badge-icon">⛳</span> Launch Monitor Agnostic</span>
     <span class="badge"><span class="badge-icon">🤖</span> AI-Powered</span>
-    <span class="badge"><span class="badge-icon">🏌️</span> Personalized</span>
+    <span class="badge"><span class="badge-icon">🗺️</span> Satellite Course Maps</span>
   </div>
   <a class="appstore-btn" href="https://apps.apple.com/us/app/looper-golf/id6759972833" target="_blank" rel="noopener">
     <!-- Apple logo -->
@@ -392,51 +516,94 @@
   </div>
 </section>
 
+<!-- COURSE MAP SHOWCASE -->
+<section id="course-map">
+  <div class="section-label">On-Course GPS Caddie</div>
+  <h2>A caddie that knows the course</h2>
+  <div class="map-showcase">
+    <div class="map-text">
+      <p>Looper's satellite course map gives you everything a professional caddie would know — distances, hazards, wind, and elevation — all in one glance.</p>
+      <p>Tap any bunker, water hazard, or green and instantly get carry distance, wind-adjusted "plays as" distance, and elevation change from your position.</p>
+      <ul class="map-bullets">
+        <li>
+          <span class="bullet-icon">📍</span>
+          <span><strong>Ghost Pin mode</strong> — long-press to drop a pin anywhere on the map. Distances and carry advice update from the pin's position, not your GPS. Perfect for planning shots before you reach the ball.</span>
+        </li>
+        <li>
+          <span class="bullet-icon">🎯</span>
+          <span><strong>Tap-to-carry</strong> — tap a bunker or water hazard and get an instant carry recommendation from your bag. Shows "Plays as Xm · +Ym elevation · Z mph headwind" so you know the real carry required.</span>
+        </li>
+        <li>
+          <span class="bullet-icon">🌬️</span>
+          <span><strong>Live wind vane</strong> — shows wind speed and direction relative to the tee-to-green axis of each hole, so you always know headwind vs tailwind, not just compass bearing.</span>
+        </li>
+        <li>
+          <span class="bullet-icon">▲</span>
+          <span><strong>Elevation-aware</strong> — course elevation data is built into every distance. Uphill shots show ▲ Xm and automatically increase the recommended carry. Downhill shots reduce it.</span>
+        </li>
+        <li>
+          <span class="bullet-icon">⭕</span>
+          <span><strong>Distance rings</strong> — 50 / 100 / 150 / 200m rings around the green auto-reposition when you tap a new hole, giving instant lay-up reference points.</span>
+        </li>
+      </ul>
+    </div>
+    <div class="map-phone-wrap">
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <img src="assets/course-map.png"
+               alt="Looper course map showing ghost pin mode with tap-to-carry on a bunker" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- FEATURES -->
 <section id="features">
   <div class="section-label">What Looper Does</div>
   <h2>Everything your game needs</h2>
-  <p class="section-intro">Looper connects to your launch monitor data and gives you the kind of analysis that used to require a professional fitting or coaching session.</p>
+  <p class="section-intro">Looper connects your practice data to your on-course decisions — the kind of insight that used to require a professional fitting, coaching session, and a caddie all at once.</p>
   <div class="features-grid">
     <div class="feature-card">
       <div class="feature-emoji">📊</div>
       <h3>Launch Monitor Analysis</h3>
-      <p>Import your GSPro, Garmin golf or other session data and get instant breakdowns of ball speed, spin rate, carry distance, and more — per club.</p>
+      <p>Import your GSPro, Garmin R10/R50, or other session data and get instant breakdowns of ball speed, spin rate, carry distance, and more — per club, per session.</p>
     </div>
     <div class="feature-card">
       <div class="feature-emoji">🏌️</div>
       <h3>Swing Fault Detection</h3>
-      <p>Looper identifies patterns across your shots and flags recurring faults with recommended drills to fix them.</p>
+      <p>Looper identifies patterns across your shots and flags recurring faults — slice, early extension, shallow path — with specific drills to fix each one.</p>
+    </div>
+    <div class="feature-card highlight">
+      <div class="feature-emoji">🗺️</div>
+      <h3>Interactive Satellite Maps</h3>
+      <p>Satellite imagery with every bunker, hazard, green, and landing zone mapped. Tap any feature for instant carry advice adjusted for wind and elevation from your position.</p>
     </div>
     <div class="feature-card">
       <div class="feature-emoji">🎯</div>
-      <h3>Club Recommendations</h3>
-      <p>Tell Looper your distance, wind, lie and hazards — it calculates the optimal club using your actual distance data.</p>
+      <h3>Bag-Based Carry Advice</h3>
+      <p>Every carry recommendation uses your actual distance data. Not a generic chart — your 7-iron, your swing, your miss. Wind and elevation factored in automatically.</p>
     </div>
     <div class="feature-card">
       <div class="feature-emoji">📈</div>
       <h3>Progress Tracking</h3>
-      <p>Track trends across sessions and see how your ball striking, consistency, and distances evolve over time.</p>
+      <p>Track trends across sessions and see how your ball striking, consistency, and distances evolve over time. Weekly snapshots show momentum at a glance.</p>
     </div>
     <div class="feature-card">
       <div class="feature-emoji">🎓</div>
       <h3>Coaching Library</h3>
-      <p>Browse drills, videos, and coaching topics curated to your specific swing faults and skill level.</p>
+      <p>Browse drills, videos, and coaching topics curated to your specific swing faults and skill level. Pre-loaded on first login so it's ready the moment you need it.</p>
     </div>
     <div class="feature-card">
-      <div class="feature-emoji">🎯</div>
-      <h3>GPS Rangefinder</h3>
-      <p>Real-time GPS distance to the green from anywhere on the course. Auto-selects the correct hole, shows front/back/centre distances, and highlights landing zones and doglegs ahead of you.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-emoji">🗺️</div>
+      <div class="feature-emoji">🏆</div>
       <h3>Golf Round Planner</h3>
-      <p>Set a score goal and get a personalised hole-by-hole strategy built from your actual carry distances. Recalibrates automatically as you play.</p>
+      <p>Set a stroke or Stableford goal and get a personalised hole-by-hole strategy. Live score strip shows your wind vane, score vs goal in green/red, and recalibrates as you play.</p>
     </div>
     <div class="feature-card">
       <div class="feature-emoji">👨‍🏫</div>
       <h3>Coach in the Loop</h3>
-      <p>Human coaches can connect to their students through Looper to review data, send drills, and monitor progress remotely.</p>
+      <p>Human coaches can connect to their students through Looper to review data, send drills, and monitor progress remotely — without requiring a range visit.</p>
     </div>
   </div>
 </section>
@@ -481,17 +648,17 @@
     <div class="persona-card coach">
       <div class="persona-tag">Coach</div>
       <h3>The Coach</h3>
-      <p>Identifies your faults, builds a practice plan, and guides you through structured improvement with drills and progressions.</p>
+      <p>Identifies your faults, builds a practice plan, and guides you through structured improvement with drills, progressions, and video explanations tied to your actual shot data.</p>
     </div>
     <div class="persona-card caddie">
       <div class="persona-tag">Caddie</div>
       <h3>The Caddie</h3>
-      <p>On-course strategy and club selection. GPS Rangefinder, hole-by-hole round planning, and smart club recommendations based on your real distances.</p>
+      <p>On-course strategy, club selection, and course management. Satellite GPS map, ghost-pin carry advice, wind-and-elevation adjustments, and round planning — all from your real bag data.</p>
     </div>
     <div class="persona-card analyst">
       <div class="persona-tag">Analyst</div>
       <h3>The Analyst</h3>
-      <p>Deep dive into your metrics. Compare to tour benchmarks, identify outlier shots, and understand what the numbers actually mean.</p>
+      <p>Deep dive into your metrics. Compare to tour benchmarks, identify outlier shots, track long-term trends, and understand what the numbers actually mean for your game.</p>
     </div>
   </div>
 </section>
@@ -508,7 +675,7 @@
     </div>
     <div class="about-text">
       <p><strong style="color:var(--green-deep);">Our mission</strong> is to give every golfer the same quality of feedback and coaching insight that professionals take for granted — delivered through the data their own game produces.</p>
-      <p>Looper is <a href="https://apps.apple.com/us/app/looper-golf/id6759972833" target="_blank" rel="noopener" style="color:var(--teal-dark);font-weight:600;">available on iOS</a> and is designed for golfers who use launch monitors like Garmin R10 / R50 (and others) to practice and improve.</p>
+      <p>Looper is <a href="https://apps.apple.com/us/app/looper-golf/id6759972833" target="_blank" rel="noopener" style="color:var(--teal-dark);font-weight:600;">available on iOS</a> and is designed for golfers who use launch monitors like Garmin R10 / R50 (and others) to practice and improve. Course maps are available for selected courses worldwide.</p>
     </div>
   </div>
 </section>
