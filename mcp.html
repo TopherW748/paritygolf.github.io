@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Looper Golf for Claude — MCP Integration</title>
+  <meta name="description" content="Connect Looper Golf to Claude via the Model Context Protocol. Access your golf performance data, swing analysis, coaching plans, and course strategy through natural conversation." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal:       #00C9A7;
+      --teal-dark:  #00A88C;
+      --green-deep: #0D3B2E;
+      --bg:         #F7FFFE;
+      --text:       #1A2E29;
+      --muted:      #5A7A72;
+      --border:     #D0EDE8;
+      --white:      #FFFFFF;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13, 59, 46, 0.97);
+      backdrop-filter: blur(8px);
+      padding: 0 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px;
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 10px;
+      color: var(--white); font-weight: 700; font-size: 1.1rem;
+      text-decoration: none;
+    }
+    .nav-brand img { width: 32px; height: 32px; border-radius: 7px; }
+    nav a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.9rem; margin-left: 28px; }
+    nav a:hover { color: var(--teal); }
+    .nav-links { display: flex; align-items: center; }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(160deg, var(--green-deep) 0%, #145740 60%, #1a7a59 100%);
+      color: var(--white);
+      text-align: center;
+      padding: 70px 5% 60px;
+    }
+    .hero h1 {
+      font-size: clamp(1.6rem, 4vw, 2.6rem);
+      font-weight: 800;
+      line-height: 1.2;
+    }
+    .hero h1 span { color: var(--teal); }
+    .hero p {
+      margin-top: 16px;
+      font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+      color: rgba(255,255,255,0.82);
+      max-width: 600px;
+      margin-left: auto; margin-right: auto;
+    }
+    .hero-cta {
+      display: inline-block;
+      margin-top: 28px;
+      padding: 14px 32px;
+      background: var(--teal);
+      color: var(--white);
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .hero-cta:hover { background: var(--teal-dark); }
+
+    /* ── CONTENT ── */
+    .container {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 50px 5% 80px;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      color: var(--green-deep);
+      margin-top: 48px;
+      margin-bottom: 18px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--border);
+    }
+    h2:first-of-type { margin-top: 0; }
+
+    h3 {
+      font-size: 1.05rem;
+      color: var(--green-deep);
+      margin-top: 28px;
+      margin-bottom: 10px;
+    }
+
+    p { margin-bottom: 14px; }
+
+    /* ── EXAMPLE CARDS ── */
+    .examples {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin: 18px 0;
+    }
+    .example {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 22px;
+    }
+    .example-prompt {
+      font-style: italic;
+      color: var(--green-deep);
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+    }
+    .example-prompt::before { content: "\201C"; color: var(--teal); font-weight: 700; }
+    .example-prompt::after { content: "\201D"; color: var(--teal); font-weight: 700; }
+    .example-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    /* ── TOOL TABLE ── */
+    .tool-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 0.88rem;
+    }
+    .tool-table th {
+      text-align: left;
+      padding: 10px 12px;
+      background: var(--green-deep);
+      color: var(--white);
+      font-weight: 600;
+    }
+    .tool-table th:first-child { border-radius: 8px 0 0 0; }
+    .tool-table th:last-child { border-radius: 0 8px 0 0; }
+    .tool-table td {
+      padding: 9px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .tool-table tr:last-child td { border-bottom: none; }
+    .tool-table tr:nth-child(even) { background: rgba(0, 201, 167, 0.04); }
+    .tool-table code {
+      background: #e8f5f1;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.82rem;
+    }
+
+    /* ── INFO BOX ── */
+    .info-box {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--teal);
+      border-radius: 8px;
+      padding: 18px 22px;
+      margin: 18px 0;
+      font-size: 0.9rem;
+    }
+    .info-box strong { color: var(--green-deep); }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 32px 5%;
+      background: #091f18;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.8rem;
+    }
+    footer a { color: var(--teal); text-decoration: none; margin: 0 10px; }
+
+    @media (max-width: 520px) {
+      .nav-links { display: none; }
+      .examples { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">
+    <img src="assets/looper-icon.png" alt="Looper" />
+    Looper Golf
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="connect.html">Connect</a>
+    <a href="help.html">Help</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>Looper Golf <span>MCP Integration</span></h1>
+  <p>Connect your golf data to Claude and other AI assistants. Get personalized coaching, club recommendations, course strategy, and performance analysis through natural conversation.</p>
+  <a href="connect.html" class="hero-cta">Connect to Claude</a>
+</div>
+
+<div class="container">
+
+  <h2>What You Can Do</h2>
+
+  <p>Looper Golf gives Claude direct access to your real golf performance data &mdash; club distances, swing faults, round scores, coaching plans, and course strategy. Instead of generic advice, you get answers grounded in your actual numbers.</p>
+
+  <div class="examples">
+    <div class="example">
+      <div class="example-prompt">How far does my 7-iron carry?</div>
+      <div class="example-desc">Returns your average carry, total distance, ball speed, spin rate, and launch angle from your session data &mdash; in your preferred units (meters or yards).</div>
+    </div>
+    <div class="example">
+      <div class="example-prompt">What are my biggest swing faults and what drills should I do?</div>
+      <div class="example-desc">Pulls your active swing faults, traces root causes through the coaching knowledge graph, and recommends drills with progression sequences.</div>
+    </div>
+    <div class="example">
+      <div class="example-prompt">Draw up a strategy for me to break 80 at Drottningholm</div>
+      <div class="example-desc">Generates an 18-hole game plan with shot-by-shot club selections, distances, hazard warnings, and reasoning &mdash; personalized to your distances and tendencies.</div>
+    </div>
+    <div class="example">
+      <div class="example-prompt">How are my last few rounds?</div>
+      <div class="example-desc">Shows your recent round scores, courses played, and scoring trends so you can track progress.</div>
+    </div>
+    <div class="example">
+      <div class="example-prompt">What club should I hit from 155 meters with a headwind?</div>
+      <div class="example-desc">Recommends a club based on your actual distances, adjusted for wind, elevation, temperature, and hazards. Includes alternatives and warnings.</div>
+    </div>
+    <div class="example">
+      <div class="example-prompt">How does my driver compare to PGA Tour averages?</div>
+      <div class="example-desc">Compares your club stats against tour benchmarks for carry distance, ball speed, spin rate, and launch angle.</div>
+    </div>
+  </div>
+
+
+  <h2>Available Tools</h2>
+
+  <p>Looper Golf exposes <strong>73 tools</strong> and 4 resources via the Model Context Protocol. All tools return structured data &mdash; Claude synthesizes natural-language answers from your real numbers.</p>
+
+  <h3>Player Data</h3>
+  <table class="tool-table">
+    <tr><th>Tool</th><th>What It Returns</th></tr>
+    <tr><td><code>get_player_profile</code></td><td>Handicap, shot counts, club list, unit preferences</td></tr>
+    <tr><td><code>get_club_statistics</code></td><td>Per-club averages: carry, total, ball speed, spin rate, launch angle</td></tr>
+    <tr><td><code>get_session_history</code></td><td>Recent practice sessions with club breakdowns</td></tr>
+    <tr><td><code>get_round_history</code></td><td>Round scores with course names and dates</td></tr>
+    <tr><td><code>get_bag_composition</code></td><td>Active bag clubs with brands, models, lofts, and shafts</td></tr>
+    <tr><td><code>get_club_distances</code></td><td>Full distance table for every club: carry, total, speed, spin, launch</td></tr>
+    <tr><td><code>get_goals</code></td><td>Improvement goals, progress percentage, and days remaining</td></tr>
+  </table>
+
+  <h3>Coaching &amp; Improvement</h3>
+  <table class="tool-table">
+    <tr><th>Tool</th><th>What It Returns</th></tr>
+    <tr><td><code>get_swing_faults</code></td><td>Active faults with drills and root cause chains</td></tr>
+    <tr><td><code>get_coaching_plan</code></td><td>Structured improvement plan from the fault graph</td></tr>
+    <tr><td><code>get_swing_analysis</code></td><td>Cached swing patterns and fault summary</td></tr>
+    <tr><td><code>search_coaching_content</code></td><td>Search drills, videos, and articles</td></tr>
+  </table>
+
+  <h3>Analytics &amp; Benchmarks</h3>
+  <table class="tool-table">
+    <tr><th>Tool</th><th>What It Returns</th></tr>
+    <tr><td><code>get_benchmarks</code></td><td>Your stats vs PGA Tour averages</td></tr>
+    <tr><td><code>get_practice_trends</code></td><td>Per-session metric trends over time</td></tr>
+    <tr><td><code>get_strokes_gained</code></td><td>Strokes gained breakdown (requires GPS round data)</td></tr>
+    <tr><td><code>get_round_strokes_gained</code></td><td>Strokes gained for a specific round</td></tr>
+    <tr><td><code>get_dispersion_profile</code></td><td>Shot dispersion patterns per club</td></tr>
+    <tr><td><code>get_player_tendencies</code></td><td>Per-club shot shape tendencies, miss direction, and draw/fade bias</td></tr>
+  </table>
+
+  <h3>On-Course Caddie</h3>
+  <table class="tool-table">
+    <tr><th>Tool</th><th>What It Returns</th></tr>
+    <tr><td><code>recommend_club</code></td><td>Club recommendation with wind, elevation, and hazard adjustments</td></tr>
+    <tr><td><code>list_courses</code></td><td>Available courses with geometry data</td></tr>
+    <tr><td><code>get_course_strategy</code></td><td>Full 18-hole strategy with per-shot reasoning, hazards, and alternatives</td></tr>
+  </table>
+
+  <h3>Analytics &amp; Scoring</h3>
+  <table class="tool-table">
+    <tr><th>Tool</th><th>What It Returns</th></tr>
+    <tr><td><code>get_scoring_stats</code></td><td>GIR%, fairways hit, avg putts, 3-putt rate, scoring trends</td></tr>
+    <tr><td><code>get_round_summary</code></td><td>Aggregated GIR, FIR, putts across recent rounds</td></tr>
+    <tr><td><code>get_round_strokes_gained</code></td><td>Strokes gained breakdown for a specific round</td></tr>
+    <tr><td><code>get_top_focus_areas</code></td><td>Top prioritised improvement areas from round stats, SG, and tendencies</td></tr>
+    <tr><td><code>compare_rounds</code></td><td>Side-by-side round comparison with per-hole data and club distances</td></tr>
+  </table>
+
+  <h3>Coach in the Loop — Player</h3>
+  <table class="tool-table">
+    <tr><th>Tool</th><th>What It Returns</th></tr>
+    <tr><td><code>get_coach_inbox</code></td><td>Messages from your human coach</td></tr>
+    <tr><td><code>get_coach_messages</code></td><td>Coach conversation history</td></tr>
+    <tr><td><code>get_coach_assignments</code></td><td>Assigned drills and tasks</td></tr>
+    <tr><td><code>get_coach_practice_plan</code></td><td>Current practice plan from your coach</td></tr>
+    <tr><td><code>get_coach_lesson_program</code></td><td>Active multi-stage curriculum — released stages in full, locked stages title-only</td></tr>
+    <tr><td><code>send_coach_message</code></td><td>Send a message to your connected human coach</td></tr>
+    <tr><td><code>find_coaches</code></td><td>Browse verified coaches accepting students</td></tr>
+  </table>
+
+  <h3>Coach in the Loop — Coaches</h3>
+  <table class="tool-table">
+    <tr><th>Tool</th><th>What It Returns</th></tr>
+    <tr><td><code>get_coach_students</code></td><td>Connected students with names and handicaps</td></tr>
+    <tr><td><code>get_student_briefing</code></td><td>Pre-session snapshot: last session, frequency, drill compliance</td></tr>
+    <tr><td><code>get_student_sessions</code></td><td>Student's recent practice sessions</td></tr>
+    <tr><td><code>get_student_rounds</code></td><td>Student's on-course rounds with scores and club distances</td></tr>
+    <tr><td><code>create_practice_plan</code></td><td>Build a structured multi-week practice plan with drill steps</td></tr>
+    <tr><td><code>create_lesson_program</code></td><td>Plan a full multi-stage curriculum; stage 1 auto-releases</td></tr>
+    <tr><td><code>create_swing_report</code></td><td>Rate a student's swing across flexible categories with drills and videos</td></tr>
+    <tr><td><code>send_message_to_student</code></td><td>Send coaching notes or feedback to a student</td></tr>
+    <tr><td><code>upload_student_shots</code></td><td>Upload TrackMan or launch monitor data for a student</td></tr>
+  </table>
+
+
+  <h2>How It Works</h2>
+
+  <div class="info-box">
+    <strong>No server-side AI.</strong> All tools return structured JSON data from your Looper account. Claude reads and interprets the data, so your answers are always grounded in your real performance numbers.
+  </div>
+
+  <p>Looper Golf uses the <strong>Model Context Protocol (MCP)</strong>, an open standard that lets AI assistants securely access external tools and data. When you connect Looper Golf:</p>
+
+  <ol style="margin: 14px 0 14px 24px; line-height: 2;">
+    <li>Claude authenticates with your Looper account via <strong>OAuth 2.1</strong></li>
+    <li>Your player profile is auto-detected &mdash; no IDs to enter</li>
+    <li>Claude calls the appropriate tools based on your questions</li>
+    <li>Data is returned in your preferred units (meters or yards)</li>
+  </ol>
+
+  <p>Read tools return structured data from your account. Write tools (flagged clearly) let Claude take actions on your behalf &mdash; creating accounts, logging notes, sending coach messages, and setting goals. Your data stays in your Looper account and is never stored by the MCP server.</p>
+
+
+  <h2>Getting Started</h2>
+
+  <ol style="margin: 14px 0 14px 24px; line-height: 2.2;">
+    <li><strong>Add the MCP server in Claude</strong> — paste <code style="background:#e8f5f1;padding:2px 7px;border-radius:4px;font-size:0.85em;">https://looper-mcp-902947329020.europe-west1.run.app</code> into Claude.ai Settings &rarr; Integrations &rarr; Add custom connector</li>
+    <li><strong>Sign in</strong> with your Looper credentials when Claude opens the login page</li>
+    <li><strong>Start asking</strong> — Claude has instant access to your shot data, coaching plans, and course strategy</li>
+  </ol>
+
+  <div class="info-box">
+    <strong>No account yet?</strong> Just tell Claude: <em>"Create a Looper Golf account for me."</em> It will use the <code>register_player</code> tool to create your account on the spot &mdash; no app download needed. You can add shot data and set up your bag in the same conversation.
+  </div>
+
+
+  <h2>Supported AI Assistants</h2>
+
+  <p>Looper Golf works with any MCP-compatible AI assistant:</p>
+  <ul style="margin: 10px 0 14px 24px; line-height: 2;">
+    <li><strong>Claude</strong> (claude.ai, iOS app, Android app, Claude Desktop, Claude Code)</li>
+    <li><strong>Other MCP clients</strong> &mdash; any agent supporting the Model Context Protocol</li>
+  </ul>
+
+
+  <h2>Data &amp; Privacy</h2>
+
+  <p>Your golf data is stored securely in your Looper account. The MCP server acts as a read-only bridge &mdash; it queries your data on demand and never caches or stores responses. Authentication uses industry-standard OAuth 2.1 with PKCE.</p>
+
+  <p>For full details, see our <a href="privacy.html" style="color:var(--teal-dark);">Privacy Policy</a> and <a href="terms.html" style="color:var(--teal-dark);">Terms of Use</a>.</p>
+
+
+  <h2>Support</h2>
+
+  <p>Questions or issues with the integration? Contact us at <a href="mailto:paritygolfab@gmail.com" style="color:var(--teal-dark);">paritygolfab@gmail.com</a> or visit the <a href="help.html" style="color:var(--teal-dark);">Help Center</a>.</p>
+
+</div>
+
+<footer>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="connect.html">Connect</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
+    <a href="mailto:paritygolfab@gmail.com">Support</a>
+  </div>
+  <div style="margin-top: 10px;">&copy; 2025 Parity Golf AB. All rights reserved.</div>
+</footer>
+
+</body>
+</html>
