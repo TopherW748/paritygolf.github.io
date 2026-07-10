@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Account — Looper Golf</title>
+  <meta name="description" content="Create a free Looper Golf account and connect your golf data to Claude and other AI assistants." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal:       #00C9A7;
+      --teal-dark:  #00A88C;
+      --green-deep: #0D3B2E;
+      --bg:         #F7FFFE;
+      --text:       #1A2E29;
+      --muted:      #5A7A72;
+      --border:     #D0EDE8;
+      --white:      #FFFFFF;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13, 59, 46, 0.97);
+      backdrop-filter: blur(8px);
+      padding: 0 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px;
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 10px;
+      color: var(--white); font-weight: 700; font-size: 1.1rem;
+      text-decoration: none;
+    }
+    .nav-brand img { width: 32px; height: 32px; border-radius: 7px; }
+    nav a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.9rem; margin-left: 28px; }
+    nav a:hover { color: var(--teal); }
+    .nav-links { display: flex; align-items: center; }
+
+    .hero {
+      background: linear-gradient(160deg, var(--green-deep) 0%, #145740 60%, #1a7a59 100%);
+      color: var(--white);
+      text-align: center;
+      padding: 60px 5% 50px;
+    }
+    .hero h1 {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 800;
+    }
+    .hero h1 span { color: var(--teal); }
+    .hero p {
+      margin-top: 14px;
+      font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+      color: rgba(255,255,255,0.8);
+      max-width: 540px;
+      margin-left: auto; margin-right: auto;
+    }
+
+    .container {
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 40px 5% 80px;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px;
+      margin-bottom: 28px;
+    }
+    .card h2 {
+      font-size: 1.15rem;
+      margin-bottom: 18px;
+      color: var(--green-deep);
+    }
+    .form-group {
+      margin-bottom: 14px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: var(--muted);
+    }
+    .form-group input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus {
+      border-color: var(--teal);
+    }
+    .form-hint {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.1s, opacity 0.2s;
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .btn-primary {
+      background: var(--teal);
+      color: var(--white);
+    }
+    .btn-primary:hover { background: var(--teal-dark); }
+    .btn-copy {
+      background: var(--green-deep);
+      color: var(--white);
+      margin-top: 12px;
+    }
+    .btn-copy:hover { opacity: 0.9; }
+    .btn-copy.copied { background: #22c55e; }
+    .btn-secondary {
+      background: transparent;
+      color: var(--teal-dark);
+      border: 1px solid var(--border);
+      margin-top: 10px;
+    }
+    .btn-secondary:hover { background: #f0faf8; }
+    .error-msg {
+      color: #dc2626;
+      font-size: 0.85rem;
+      margin-top: 8px;
+    }
+    .success-msg {
+      color: #16a34a;
+      font-size: 0.85rem;
+      margin-top: 8px;
+    }
+    .login-link {
+      text-align: center;
+      font-size: 0.88rem;
+      margin-top: 14px;
+      color: var(--muted);
+    }
+    .login-link a {
+      color: var(--teal-dark);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .login-link a:hover { text-decoration: underline; }
+
+    .url-box {
+      background: #f1f5f4;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      font-family: "SF Mono", "Fira Code", monospace;
+      font-size: 0.72rem;
+      word-break: break-all;
+      line-height: 1.5;
+      max-height: 80px;
+      overflow-y: auto;
+      color: var(--muted);
+    }
+    .config-box {
+      background: #1a2e29;
+      color: #a7f3d0;
+      padding: 14px;
+      border-radius: 8px;
+      font-family: "SF Mono", "Fira Code", monospace;
+      font-size: 0.75rem;
+      line-height: 1.5;
+      overflow-x: auto;
+      margin-top: 8px;
+      white-space: pre;
+    }
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+    .tier-badge {
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+    }
+    .tier-pro { background: #dcfce7; color: #16a34a; }
+    .tier-free { background: #fef3c7; color: #d97706; }
+
+    .section-label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--green-deep);
+      margin-bottom: 6px;
+      margin-top: 18px;
+    }
+    .section-label:first-child { margin-top: 0; }
+
+    .instructions {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px 28px;
+      margin-bottom: 28px;
+    }
+    .instructions h3 {
+      font-size: 1rem;
+      margin-bottom: 14px;
+      color: var(--green-deep);
+    }
+    .client-block {
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .client-block:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .client-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .client-steps {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .features-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px 28px;
+    }
+    .features-card h3 {
+      font-size: 1rem;
+      margin-bottom: 12px;
+      color: var(--green-deep);
+    }
+    .feature-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.88rem;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+    .feature-icon {
+      color: var(--teal);
+      font-size: 1rem;
+      width: 20px;
+      text-align: center;
+    }
+
+    .hidden { display: none; }
+
+    footer {
+      text-align: center;
+      padding: 32px 5%;
+      background: #091f18;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.8rem;
+    }
+    footer a { color: var(--teal); text-decoration: none; margin: 0 10px; }
+
+    @media (max-width: 520px) {
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">
+    <img src="assets/looper-icon.png" alt="Looper" />
+    Looper Golf
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="help.html">Help</a>
+    <a href="connect.html">Connect</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>Create Your <span>Looper Account</span></h1>
+  <p>Sign up for free and connect your golf data to Claude and other AI assistants in under a minute.</p>
+</div>
+
+<div class="container">
+
+  <!-- SIGNUP FORM -->
+  <div id="signup-card" class="card">
+    <h2>Create your account</h2>
+    <form id="signup-form" onsubmit="return handleSignup(event)">
+      <div class="form-group">
+        <label for="name">Name (optional)</label>
+        <input type="text" id="name" placeholder="Your name" autocomplete="name" />
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" required placeholder="you@example.com" autocomplete="email" />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" required placeholder="At least 8 characters" autocomplete="new-password" minlength="8" />
+        <div class="form-hint">Minimum 8 characters</div>
+      </div>
+      <div class="form-group">
+        <label for="confirm-password">Confirm Password</label>
+        <input type="password" id="confirm-password" required placeholder="Re-enter your password" autocomplete="new-password" minlength="8" />
+      </div>
+      <button type="submit" class="btn btn-primary" id="signup-btn">Create Account</button>
+      <div id="signup-error" class="error-msg hidden"></div>
+    </form>
+    <div class="login-link">
+      Already have an account? <a href="connect.html">Sign in here</a>
+    </div>
+  </div>
+
+  <!-- CONNECTION URL (hidden until signup) -->
+  <div id="connection-card" class="card hidden">
+    <h2>Your Connection URL</h2>
+
+    <p class="section-label">For Claude.ai, iOS &amp; Android</p>
+    <div class="url-box" id="url-display"></div>
+    <button class="btn btn-copy" id="copy-url-btn" onclick="copyURL()">Copy URL</button>
+
+    <div class="meta-row">
+      <span>Expires: <span id="token-expiry"></span></span>
+      <span id="token-tier"></span>
+    </div>
+
+    <p class="section-label">For Claude Desktop &amp; Claude Code</p>
+    <div class="config-box" id="config-display"></div>
+    <button class="btn btn-copy" id="copy-config-btn" onclick="copyConfig()" style="margin-top:12px">Copy JSON Config</button>
+
+    <button class="btn btn-secondary" id="regenerate-btn" onclick="regenerate()">Generate New Token</button>
+  </div>
+
+  <!-- INSTRUCTIONS (hidden until signup) -->
+  <div id="instructions" class="instructions hidden">
+    <h3>Where to Paste</h3>
+
+    <div class="client-block">
+      <div class="client-title">Claude App (iOS / Android)</div>
+      <div class="client-steps">
+        1. Open Claude &rarr; Settings &rarr; Integrations<br>
+        2. Tap <strong>Add custom connector</strong><br>
+        3. Name: <strong>Looper Golf</strong><br>
+        4. Paste the URL above
+      </div>
+    </div>
+
+    <div class="client-block">
+      <div class="client-title">claude.ai (Browser)</div>
+      <div class="client-steps">
+        1. Settings &rarr; Integrations &rarr; Add<br>
+        2. Name: <strong>Looper Golf</strong><br>
+        3. Paste the URL above
+      </div>
+    </div>
+
+    <div class="client-block">
+      <div class="client-title">Claude Desktop</div>
+      <div class="client-steps">
+        1. Settings &rarr; Developer &rarr; Edit Config<br>
+        2. Paste the JSON config above and save
+      </div>
+    </div>
+
+    <div class="client-block">
+      <div class="client-title">Claude Code (CLI)</div>
+      <div class="client-steps">
+        1. Save the JSON config above as <code>.mcp.json</code> in your project root
+      </div>
+    </div>
+
+    <div class="client-block">
+      <div class="client-title">Try asking Claude:</div>
+      <div class="client-steps" style="font-style: italic;">
+        "Design a practice plan to lower my handicap by 3 strokes"<br>
+        "What club should I hit from 155 yards with a headwind?"<br>
+        "Analyze my swing faults and suggest drills"
+      </div>
+    </div>
+  </div>
+
+  <!-- WHAT CLAUDE CAN ACCESS (hidden until signup) -->
+  <div id="features-card" class="features-card hidden">
+    <h3>What Claude Can Access</h3>
+    <div class="feature-row"><span class="feature-icon">&#9971;</span> Your player profile &amp; handicap</div>
+    <div class="feature-row"><span class="feature-icon">&#128202;</span> Club distances &amp; shot statistics</div>
+    <div class="feature-row"><span class="feature-icon">&#128200;</span> Swing fault analysis</div>
+    <div class="feature-row"><span class="feature-icon">&#128218;</span> Coaching plans &amp; drill recommendations</div>
+    <div class="feature-row"><span class="feature-icon">&#9925;</span> Club selection with weather physics</div>
+    <div class="feature-row"><span class="feature-icon">&#8599;</span> Strokes gained breakdown</div>
+    <div class="feature-row"><span class="feature-icon">&#127919;</span> Dispersion &amp; consistency analysis</div>
+  </div>
+
+</div>
+
+<footer>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
+    <a href="mailto:info@paritygolf.se">Support</a>
+  </div>
+  <div style="margin-top: 10px;">&copy; 2025 Parity Golf AB. All rights reserved.</div>
+</footer>
+
+<script>
+  const API_BASE = "https://looper-902947329020.europe-west1.run.app";
+  const MCP_BASE_URL = "https://looper-mcp-902947329020.europe-west1.run.app/mcp/";
+
+  let connectionURL = null;
+  let configJSON = null;
+
+  async function handleSignup(e) {
+    e.preventDefault();
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirm-password").value;
+    const btn = document.getElementById("signup-btn");
+    const errorEl = document.getElementById("signup-error");
+
+    errorEl.classList.add("hidden");
+
+    if (password !== confirmPassword) {
+      errorEl.textContent = "Passwords do not match.";
+      errorEl.classList.remove("hidden");
+      return false;
+    }
+
+    if (password.length < 8) {
+      errorEl.textContent = "Password must be at least 8 characters.";
+      errorEl.classList.remove("hidden");
+      return false;
+    }
+
+    btn.disabled = true;
+    btn.textContent = "Creating account...";
+
+    try {
+      // Step 1: Register
+      const regBody = { email, password };
+      if (name) regBody.player_name = name;
+
+      const regResp = await fetch(`${API_BASE}/auth/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(regBody),
+      });
+
+      if (!regResp.ok) {
+        const err = await regResp.json();
+        throw new Error(err.msg || err.error || "Registration failed");
+      }
+
+      // Step 2: Log in to get JWT
+      const loginResp = await fetch(`${API_BASE}/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!loginResp.ok) {
+        throw new Error("Account created but login failed. Please sign in at connect.html");
+      }
+
+      const loginData = await loginResp.json();
+      const jwt = loginData.access_token;
+
+      // Step 3: Generate MCP token
+      const tokenResp = await fetch(`${API_BASE}/auth/mcp-token`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${jwt}`,
+        },
+        body: JSON.stringify({ label: "Web Signup" }),
+      });
+
+      if (!tokenResp.ok) {
+        throw new Error("Account created but token generation failed. Visit connect.html to generate a token.");
+      }
+
+      const tokenData = await tokenResp.json();
+      const mcpToken = tokenData.mcp_token;
+
+      connectionURL = `${MCP_BASE_URL}?token=${mcpToken}`;
+      configJSON = JSON.stringify({
+        mcpServers: {
+          "looper-golf": {
+            url: connectionURL
+          }
+        }
+      }, null, 2);
+
+      // Show connection URL
+      document.getElementById("url-display").textContent = connectionURL;
+      document.getElementById("config-display").textContent = configJSON;
+      document.getElementById("token-expiry").textContent = (tokenData.expires_at || "").slice(0, 10);
+
+      const tierEl = document.getElementById("token-tier");
+      const tier = tokenData.tier || "free";
+      tierEl.innerHTML = `<span class="tier-badge tier-${tier}">${tier.toUpperCase()}</span>`;
+
+      // Toggle visibility
+      document.getElementById("signup-card").classList.add("hidden");
+      document.getElementById("connection-card").classList.remove("hidden");
+      document.getElementById("instructions").classList.remove("hidden");
+      document.getElementById("features-card").classList.remove("hidden");
+
+    } catch (err) {
+      errorEl.textContent = err.message;
+      errorEl.classList.remove("hidden");
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Create Account";
+    }
+
+    return false;
+  }
+
+  function copyURL() {
+    if (!connectionURL) return;
+    navigator.clipboard.writeText(connectionURL).then(() => {
+      const btn = document.getElementById("copy-url-btn");
+      btn.textContent = "Copied!";
+      btn.classList.add("copied");
+      setTimeout(() => {
+        btn.textContent = "Copy URL";
+        btn.classList.remove("copied");
+      }, 2000);
+    });
+  }
+
+  function copyConfig() {
+    if (!configJSON) return;
+    navigator.clipboard.writeText(configJSON).then(() => {
+      const btn = document.getElementById("copy-config-btn");
+      btn.textContent = "Copied!";
+      btn.classList.add("copied");
+      setTimeout(() => {
+        btn.textContent = "Copy JSON Config";
+        btn.classList.remove("copied");
+      }, 2000);
+    });
+  }
+
+  function regenerate() {
+    connectionURL = null;
+    configJSON = null;
+    document.getElementById("signup-card").classList.remove("hidden");
+    document.getElementById("connection-card").classList.add("hidden");
+    document.getElementById("instructions").classList.add("hidden");
+    document.getElementById("features-card").classList.add("hidden");
+    document.getElementById("signup-error").classList.add("hidden");
+    document.getElementById("signup-form").reset();
+  }
+</script>
+
+</body>
+</html>
