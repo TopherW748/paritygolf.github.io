@@ -3,12 +3,10 @@
     "looper-golf": {
       "type": "http",
       "url": "https://looper-mcp-4b6kzuhpma-ew.a.run.app/mcp",
-      "auth": {
-        "type": "oauth2"
-      },
+      "auth": { "type": "oauth2" },
       "name": "Looper Golf",
       "description": "AI-native golf intelligence — launch monitor data, round analysis, swing coaching, club selection, and course strategy for Claude and any MCP-compatible agent.",
-      "icon": "https://loopergolf.com/favicon.ico"
+      "icon": "https://paritygolf.github.io/assets/looper-icon.png"
     }
   }
 }
