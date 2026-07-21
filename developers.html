@@ -1,3 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Looper Golf MCP server — 70 tools exposing your golf data to Claude and any MCP-compatible AI agent." />
+<title>Looper Golf · Developers</title>
 
-<!doctype html><html lang="en" data-frame-uuid="2068b848-2493-41d5-97a4-dfb46dfa00a8"><head><meta property="og:title" content="Claude Artifact"><meta name="twitter:title" content="Claude Artifact"><meta name="description" content="Try out Artifacts created by Claude users"><meta property="og:description" content="Try out Artifacts created by Claude users"><meta name="twitter:description" content="Try out Artifacts created by Claude users"><meta property="og:image" content="https://claude.ai/images/claude_ogimage.png"><meta name="twitter:image" content="https://claude.ai/images/claude_ogimage.png"><meta property="og:image:width" content="1138"><meta property="og:image:height" content="640"><meta property="og:image:alt" content="Claude Artifact"><meta name="twitter:card" content="summary"><meta name="robots" content="noindex, nofollow"><link rel="preconnect" href="https://assets-proxy.anthropic.com" crossorigin><link rel="dns-prefetch" href="https://assets-proxy.anthropic.com"><meta name="build-timestamp" content="1784590248"><meta name="build-git-hash" content="ad739544ca201d633ed4168ffd6477c6228175ec"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><meta name="referrer" content="no-referrer"><title>Claude Artifact</title><script nonce="J+NvP9S7rt6ex6to3cnBzA==">!function(e,t,o){if(t?.embedded&&(e.embedded=""),parent!==window){var r=location.origin,d=location.ancestorOrigins;if(d)d[0]===r&&d[d.length-1]===r&&(e.embedded="");else if(parent===top&&document.referrer)try{new URL(document.referrer).origin===r&&(e.embedded="")}catch{}}"embedded"in e&&"none"===(t?.chrome??o.get("chrome"))&&(e.chrome="none");var n={mode:["light","dark","system"],platform:["web","desktop"],font:["anthropic","system"]};for(var a of Object.keys(n)){var c=t?.[a]??o.get(a[0]);if("mode"===a&&null==t?.mode&&!("embedded"in e))try{var i=JSON.parse(localStorage.getItem("LSS-userThemeMode"));i&&"object"==typeof i&&(i=i.value),"light"!==i&&"dark"!==i||(c=i)}catch(e){}n[a].includes(c)&&(e[a]=c)}}(document.documentElement.dataset,window.claudeDesktopArtifactPane,new URLSearchParams(location.search))</script><script nonce="J+NvP9S7rt6ex6to3cnBzA==">!function(){try{var e=document.documentElement.dataset.frameUuid;if(!e)return;var t=/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/,a=new URLSearchParams(location.search),n=a.get("org"),r=(document.cookie.match(/(?:^|;\s*)lastActiveOrg=([^;]*)/)||[])[1],o=n&&t.test(n)?n:r&&t.test(r)?r:null;if(!o)return;var s=self===top&&!("embedded"in document.documentElement.dataset),i=a.get("via"),c=null!==i?i:s?"user_open":"",d=a.get("sk"),l=new URLSearchParams;l.set("org",o),c&&l.set("via",c),d&&/^[A-Za-z0-9_-]{16,64}$/.test(d)&&l.set("sk",d);var u="/api/frame/"+e+"?"+l.toString(),m=function(e,t){var a=null==e?null:e.toLowerCase();return null!==a&&-1!==t.indexOf(a)?a:null},f=navigator.userAgent,g={"X-Frame-CP":"go","X-Frame-Platform":m(a.get("platform"),["web","desktop","ios","android","cli"])||(f.includes(" Electron/")?"desktop":/Android/.test(f)?"android":/iPad|iPhone|iPod/.test(f)||f.includes("Macintosh")&&navigator.maxTouchPoints>1?"ios":"web")},h=m(a.get("surface"),["chat","cowork","code","slack","teams","standalone"])||(s?"standalone":"");h&&(g["X-Frame-Surface"]=h);var v=fetch(u,{credentials:"same-origin",headers:g,signal:AbortSignal.timeout(2e4)});v.catch(function(){}),window.__frameBootPrefetch={url:u,res:v}}catch(e){}}()</script><link rel="preload" as="font" type="font/woff2" crossorigin href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/cc27851ad-DDVos-BJ.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/c0f671921-_JGacpB2.woff2"><script type="module" crossorigin src="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/frame-shell-DwkiZq1H.js" nonce="J+NvP9S7rt6ex6to3cnBzA=="></script><link rel="modulepreload" href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/frame-shell-chrome-sxQeCRjf.js" crossorigin><link rel="modulepreload" href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/rolldown-runtime-iuO8RvI4.js" crossorigin><link rel="modulepreload" href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/cf7a510bc-CkImHFto.js" crossorigin><link rel="modulepreload" href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/vendor-react-Cq9ZbOuS.js" crossorigin><link rel="modulepreload" href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/vendor-ant-cds-pWzN5tpD.js" crossorigin><link rel="modulepreload" href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/vendor-frame-shell-gates-BGG0VV5x.js" crossorigin><link rel="modulepreload" href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/vendor-infra-CD8a2ofj.js" crossorigin><link rel="modulepreload" href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/vendor-zod-DWmIN8Zy.js" crossorigin><link rel="modulepreload" href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/cd174aa0b-DWpOr_ZA.js" crossorigin><link rel="modulepreload" href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/preload-helper-CICpmfzd.js" crossorigin><link rel="modulepreload" href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/c0e471ef6-DmEwSsQx.js" crossorigin><link rel="modulepreload" href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/c8a120608-CXHLl7u-.js" crossorigin><link rel="modulepreload" href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/vendor-router-BvpTzlhN.js" crossorigin><link rel="modulepreload" href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/vendor-query-Bg_8RPwh.js" crossorigin><link rel="modulepreload" href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/vendor-base-BeVQIyOy.js" crossorigin><link rel="modulepreload" href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/vendor-lodash-1zJW9p2A.js" crossorigin><link rel="modulepreload" href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/vendor-zustand-DrzhfHlZ.js" crossorigin><link rel="modulepreload" href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/vendor-intl-VHApdNVl.js" crossorigin><link rel="modulepreload" href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/vendor-base-ui-BhCkg1by.js" crossorigin><link rel="modulepreload" href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/vendor-radix-DnGH0q-e.js" crossorigin><link rel="modulepreload" href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/vendor-luxon-BkJl4Yay.js" crossorigin><link rel="modulepreload" href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/ce06f77be-ueu9btyN.js" crossorigin><link rel="modulepreload" href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/vendor-motion-UZ6ADwet.js" crossorigin><link rel="modulepreload" href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/vendor-icons-DDqliY6B.js" crossorigin><link rel="modulepreload" href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/cad99c478-CWA-_iQA.js" crossorigin><link rel="modulepreload" href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/ce5d427fc-BJ1nW1bV.js" crossorigin><link rel="modulepreload" href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/vendor-zod-v3-B0UEwSwD.js" crossorigin><link rel="modulepreload" href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/cd259f28f-DTsRebUP.js" crossorigin><link rel="modulepreload" href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/c1d9cdc6d-vnBlsnIk.js" crossorigin><link rel="modulepreload" href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/c56232333-BzoUFzT4.js" crossorigin><link rel="modulepreload" href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/vendor-virtual-Dxh7tv3z.js" crossorigin><link rel="modulepreload" href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/vendor-growthbook-DJw7sViH.js" crossorigin><link rel="modulepreload" href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/cd968ecf9-CpGAxfeV.js" crossorigin><link rel="modulepreload" href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/c34cf98de-Cl9I8I0i.js" crossorigin><link rel="modulepreload" href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/c6509dea7-DzzICa85.js" crossorigin><link rel="modulepreload" href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/c53920d57-BFutn8SU.js" crossorigin><link rel="modulepreload" href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/cd1aab41d-BJiKA2JT.js" crossorigin><link rel="modulepreload" href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/cdb1d7c1b-C8gK2sfU.js" crossorigin><link rel="modulepreload" href="https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/frame-shell-deferred-Bk-iTPE6.js" crossorigin><style nonce="J+NvP9S7rt6ex6to3cnBzA==">:root{--bg:#f9f9f7;--fg:#0b0b0b;--mut:#52514e;--line:#0b0b0b1a;--bord:#0b0b0b33;--hov:#0b0b0b0d;--surf:#fff;--brand:#c6613f;--primary:#0b0b0b;--on-primary:#fff;--danger-bg:#fad6d6;--danger-bord:#f09595;--danger-fg:#8e2626}html[data-embedded]{--bg:#fff;--surf:#fff}@media (prefers-color-scheme:dark){html:not([data-mode]){--bg:#0d0d0d;--fg:#fff;--mut:#c3c2b7;--line:#ffffff1a;--bord:#fff3;--hov:#ffffff0d;--surf:#2c2c2a;--primary:#fff;--on-primary:#0b0b0b;--danger-bg:#3c0e0e;--danger-bord:#641919;--danger-fg:#ec7e7e}html:not([data-mode])[data-embedded]{--bg:#2c2c2a;--surf:#383835}}html[data-mode=light]{--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light}html[data-mode=dark]{--bg:#0d0d0d;--fg:#fff;--mut:#c3c2b7;--line:#ffffff1a;--bord:#fff3;--hov:#ffffff0d;--surf:#2c2c2a;--primary:#fff;--on-primary:#0b0b0b;--danger-bg:#3c0e0e;--danger-bord:#641919;--danger-fg:#ec7e7e;--lightningcss-light: ;--lightningcss-dark:initial;color-scheme:dark}html[data-mode=dark][data-embedded]{--bg:#2c2c2a;--surf:#383835}@font-face{font-family:Anthropic Serif;src:url(https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/c66fc489e-2VcCjn5t.woff2)format("woff2");font-weight:300 800;font-style:normal;font-display:swap}@font-face{font-family:Anthropic Sans;src:url(https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/cc27851ad-DDVos-BJ.woff2)format("woff2");font-weight:300 800;font-style:normal;font-display:swap}@font-face{font-family:Anthropicons-Variable;src:url(https://assets-proxy.anthropic.com/claude-ai/v2/assets/v1/c0f671921-_JGacpB2.woff2)format("woff2-variations");font-weight:400 700;font-display:block}.ico{-webkit-font-smoothing:auto;-webkit-user-select:none;user-select:none;font-family:Anthropicons-Variable;font-size:16px;font-weight:400;line-height:1}:root{--bar:36px;--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light dark}@media (prefers-color-scheme:dark){:root{--lightningcss-light: ;--lightningcss-dark:initial}}@layer{*{box-sizing:border-box;margin:0;padding:0}button{font:inherit;border:0;background:0 0;cursor:pointer;color:inherit}}html,body{overscroll-behavior:none;background:var(--bg);height:100%;color:var(--fg);overflow:hidden}body{font:13px/1.4 Anthropic Sans,-apple-system,BlinkMacSystemFont,system-ui,sans-serif}#hdr{height:var(--bar);justify-content:space-between;align-items:center;padding:0 12px;display:flex;position:relative}.l,.r{align-items:center;gap:10px;display:flex}.l{flex:1;min-width:0}.r{flex:none}.logo{background:var(--surf);border:.5px solid var(--bord);width:24px;height:24px;color:var(--fg);border-radius:8px;flex-shrink:0;justify-content:center;align-items:center;text-decoration:none;display:inline-flex}a.logo:hover{background:var(--hov)}.byline{font-size:var(--cds-font-size-caption,12px);color:var(--mut);white-space:nowrap;text-overflow:ellipsis;flex-shrink:0;max-width:312px;overflow:hidden}.l>button[data-title-menu]{flex-shrink:1000;min-width:0;margin-left:-6px;overflow:hidden}.l button[data-title-menu]>span,.l button[data-title-menu] .truncate{min-width:0}.skel{background:var(--hov);border-radius:4px;display:inline-block}.skel-logo{border-radius:8px;width:24px;height:24px}.skel-title{width:8em;height:1em}.skel-avatar{border-radius:50%;width:24px;height:24px}.degraded-title{white-space:nowrap;text-overflow:ellipsis;font-size:14px;font-weight:500;overflow:hidden}#hdr-degraded,body.chrome-degraded #hdr{display:none}body.chrome-degraded #hdr-degraded{height:var(--bar);align-items:center;gap:10px;padding:0 12px;display:flex}@media (max-width:768px){:root{--bar:50px}#hdr{padding-left:4px}.logo,.skel-logo{display:none}.l{flex-direction:column;justify-content:center;align-items:flex-start;gap:0}.l>button[data-title-menu]{max-width:100%;margin-left:0}.byline{max-width:100%;margin:-2px 0 0 6px}.skel-avatar{width:32px;height:32px}}html[data-embedded]{--bar:42px}html[data-embedded] #hdr{padding:0 8px}html[data-embedded] .byline{flex-shrink:1;max-width:100%}html[data-embedded] .skel-logo,html[data-embedded] .skel-title,html[data-embedded] .skel-avatar,html[data-embedded] .logo,html[data-embedded][data-chrome=none] #hdr,html[data-embedded][data-chrome=none] #hdr-degraded,html[data-header-hidden] #hdr,html[data-header-hidden] #hdr-degraded{display:none}html[data-embedded][data-chrome=none],html[data-header-hidden]{--bar:0px}main{inset:var(--bar) 0 0 0;display:flex;position:absolute}#frame-slot{flex:1;min-width:0;position:relative}#loading{justify-content:center;align-items:center;display:flex;position:absolute;inset:0}#loading[hidden]{display:none}#loading.slow{text-align:center;color:var(--mut);flex-direction:column;gap:12px;padding:0 24px;font-size:13px}#loading:after{content:"";border:2px solid var(--line);border-top-color:var(--mut);border-radius:50%;width:24px;height:24px;animation:.8s linear infinite spin}@keyframes spin{to{transform:rotate(360deg)}}#frame-content{width:100%;height:100%;box-shadow:0 0 0 .5px var(--line), 0 2px 4px #0b0b0b12, 0 6px 16px #0b0b0b14;opacity:0;border:0;border-radius:8px 8px 0 0;transition:opacity .12s;position:absolute;inset:0}#frame-slot>iframe.swap:not(.ready){opacity:0;pointer-events:none;border:0;width:100%;height:100%;position:absolute;inset:0}#frame-content.swap{transition:none}#frame-content.swap.crossfade{transition:opacity .12s}#frame-slot>iframe.fading-out{opacity:1;pointer-events:none;border:0;width:100%;height:100%;position:absolute;inset:0}html[data-embedded] #frame-content,html[data-header-hidden] #frame-content,body.embed #frame-content{box-shadow:none;border-radius:0}#frame-content.ready{opacity:1}@media (prefers-reduced-motion:reduce){#loading:after{animation:none}#frame-content{transition:none}}body.err #hdr,body.err #hdr-degraded,#err[hidden]{display:none}#err{text-align:center;color:var(--fg);place-content:safe center;gap:8px;padding:96px 16px 128px;display:grid;position:absolute;inset:0;overflow-y:auto}
-</style><meta name="shell-inline-span" content="2085"><meta name="robots" content="noindex, nofollow"><link rel="preconnect" href="https://2068b848-2493-41d5-97a4-dfb46dfa00a8.frame.claudeusercontent.com"></head><body><header id="hdr"><div class="l" aria-hidden="true"><span class="skel skel-logo"></span> <span class="skel skel-title"></span></div><div class="r" aria-hidden="true"><span class="skel skel-avatar"></span></div></header><div id="hdr-degraded"><a class="logo" href="/code/artifacts" aria-label="Your artifacts"><span class="ico" aria-hidden="true">&#xE017;</span></a> <span class="degraded-title"></span> <span class="byline">Content is user-generated and unverified.</span></div><main><div id="frame-slot" data-frame-uuid="2068b848-2493-41d5-97a4-dfb46dfa00a8" data-frame-uchost="2068b848-2493-41d5-97a4-dfb46dfa00a8.frame.claudeusercontent.com"><div id="loading" role="status" aria-label="Loading"></div></div></main><div id="err" hidden></div></body></html>
+<style>
+:root {
+  --bg:           #F3F7F2;
+  --surface:      #FFFFFF;
+  --accent:       #2B5E2C;
+  --accent-mid:   #3D7B3E;
+  --text:         #1A231B;
+  --text-muted:   #5C6E5D;
+  --border:       #C6D5C6;
+  --tag-bg:       #DCECDC;
+  --tag-fg:       #2B5E2C;
+  --step-num:     #B8D4B8;
+  --surface-tint: color-mix(in srgb, var(--surface) 70%, var(--bg) 30%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:           #0D1A0E;
+    --surface:      #152518;
+    --accent:       #60B562;
+    --accent-mid:   #7EC97F;
+    --text:         #D8EDD8;
+    --text-muted:   #7A9B7B;
+    --border:       #243D25;
+    --tag-bg:       #1E3520;
+    --tag-fg:       #7EC97F;
+    --step-num:     #2A4D2B;
+    --surface-tint: color-mix(in srgb, var(--surface) 60%, var(--bg) 40%);
+  }
+}
+
+:root[data-theme="light"] {
+  --bg:           #F3F7F2;
+  --surface:      #FFFFFF;
+  --accent:       #2B5E2C;
+  --accent-mid:   #3D7B3E;
+  --text:         #1A231B;
+  --text-muted:   #5C6E5D;
+  --border:       #C6D5C6;
+  --tag-bg:       #DCECDC;
+  --tag-fg:       #2B5E2C;
+  --step-num:     #B8D4B8;
+  --surface-tint: color-mix(in srgb, var(--surface) 70%, var(--bg) 30%);
+}
+
+:root[data-theme="dark"] {
+  --bg:           #0D1A0E;
+  --surface:      #152518;
+  --accent:       #60B562;
+  --accent-mid:   #7EC97F;
+  --text:         #D8EDD8;
+  --text-muted:   #7A9B7B;
+  --border:       #243D25;
+  --tag-bg:       #1E3520;
+  --tag-fg:       #7EC97F;
+  --step-num:     #2A4D2B;
+  --surface-tint: color-mix(in srgb, var(--surface) 60%, var(--bg) 40%);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--accent-mid); text-decoration: underline; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+.container { max-width: 760px; margin: 0 auto; padding: 0 28px; }
+
+/* ── NAV ── */
+nav {
+  border-bottom: 1px solid var(--border);
+  padding: 14px 0;
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  z-index: 10;
+}
+nav .container { display: flex; align-items: center; gap: 10px; }
+
+.wordmark {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 15px;
+  color: var(--text);
+  text-decoration: none;
+  letter-spacing: 0.01em;
+}
+.wordmark:hover { color: var(--accent); text-decoration: none; }
+
+.nav-sep { color: var(--border); user-select: none; font-size: 14px; }
+
+.nav-badge {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tag-fg);
+  background: var(--tag-bg);
+  padding: 2px 8px;
+  border-radius: 3px;
+}
+
+.nav-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 13px;
+}
+
+.nav-right a {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.nav-right a:hover { color: var(--accent); }
+.nav-right a.active { color: var(--accent); font-weight: 600; }
+
+/* ── HERO ── */
+.hero { padding: 68px 0 56px; border-bottom: 1px solid var(--border); }
+
+.hero h1 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(30px, 5vw, 46px);
+  font-weight: 400;
+  line-height: 1.2;
+  text-wrap: balance;
+  letter-spacing: -0.01em;
+  margin-bottom: 18px;
+}
+
+.hero h1 em { font-style: italic; color: var(--accent); }
+
+.hero-desc {
+  font-size: 17px;
+  color: var(--text-muted);
+  max-width: 600px;
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+
+.prompt-example {
+  display: inline-block;
+  border-left: 3px solid var(--accent);
+  padding: 10px 16px;
+  margin-bottom: 32px;
+  font-size: 14px;
+  color: var(--text-muted);
+  font-style: italic;
+  max-width: 540px;
+}
+
+.prompt-example strong {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--text);
+  display: block;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+  font-family: system-ui;
+}
+
+.badge-row { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: var(--surface);
+}
+
+.badge .dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+/* ── SECTION COMMON ── */
+.section { padding: 56px 0; border-bottom: 1px solid var(--border); }
+.section:last-of-type { border-bottom: none; }
+
+.section-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 18px;
+}
+
+.section h2 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 1.3;
+  text-wrap: balance;
+  margin-bottom: 14px;
+}
+
+.lead {
+  color: var(--text-muted);
+  font-size: 15px;
+  margin-bottom: 32px;
+  max-width: 600px;
+}
+
+/* ── QUICKSTART STEPS ── */
+.steps { display: flex; flex-direction: column; gap: 36px; }
+
+.step { display: grid; grid-template-columns: 24px 1fr; gap: 0 18px; }
+
+.step-num {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 17px;
+  font-style: italic;
+  color: var(--step-num);
+  line-height: 1.5;
+  padding-top: 1px;
+}
+
+.step-content h3 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.step-content p { font-size: 14px; color: var(--text-muted); margin-bottom: 14px; }
+.step-content p:last-child { margin-bottom: 0; }
+
+/* ── CODE BLOCKS ── */
+.code-wrap { border-radius: 6px; overflow: hidden; }
+
+.code-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #091509;
+  padding: 8px 14px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #405840;
+  font-family: system-ui, sans-serif;
+}
+
+pre {
+  background: #0F1E10;
+  padding: 18px 20px;
+  overflow-x: auto;
+  font-family: 'SF Mono', 'Fira Code', Consolas, 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.65;
+  tab-size: 2;
+}
+
+code { font-family: inherit; font-size: inherit; }
+
+/* JSON syntax colors */
+.p  { color: #4E7A4E; }
+.k  { color: #C5E8C3; }
+.s  { color: #8FD48A; }
+.cm { color: #3F5C3F; font-style: italic; }
+
+/* Inline code */
+.ic {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 1px 5px;
+  font-family: 'SF Mono', Consolas, monospace;
+  font-size: 12px;
+}
+
+.copy-btn {
+  background: none;
+  border: 1px solid #3F5C3F;
+  color: #5A8A5A;
+  border-radius: 3px;
+  padding: 2px 9px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.12s, color 0.12s;
+}
+.copy-btn:hover { background: #192919; color: #8FD48A; }
+.copy-btn.copied { color: #8FD48A; border-color: #8FD48A; }
+
+/* ── CAPABILITIES TABLE ── */
+.cap-grid {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--border);
+}
+
+.cap-row {
+  display: grid;
+  grid-template-columns: 170px 1fr;
+  background: var(--surface);
+}
+
+@media (max-width: 500px) {
+  .cap-row { grid-template-columns: 1fr; }
+  .cap-cat { border-right: none; border-bottom: 1px solid var(--border); }
+}
+
+.cap-cat {
+  padding: 11px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--accent);
+  background: var(--surface-tint);
+  border-right: 1px solid var(--border);
+}
+
+.cap-desc {
+  padding: 11px 16px;
+  font-size: 13.5px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ── TOOLS ── */
+.tool-cats { display: flex; flex-direction: column; gap: 28px; }
+
+.tool-cat h3 {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid var(--border);
+}
+
+.tool-list { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.tool-chip {
+  font-family: 'SF Mono', Consolas, monospace;
+  font-size: 12px;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 3px 9px;
+  white-space: nowrap;
+}
+
+.tool-chip.more {
+  color: var(--text-muted);
+  font-family: system-ui, sans-serif;
+  font-size: 12px;
+  font-style: italic;
+  font-weight: 500;
+}
+
+/* ── AUTH CARDS ── */
+.auth-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 560px) { .auth-grid { grid-template-columns: 1fr; } }
+
+.auth-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 20px 22px;
+}
+
+.auth-card .auth-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--tag-fg);
+  background: var(--tag-bg);
+  padding: 2px 7px;
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
+
+.auth-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+.auth-card p { font-size: 13.5px; color: var(--text-muted); line-height: 1.6; }
+
+/* ── RESOURCE LINKS ── */
+.resource-list {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.rl {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  text-decoration: none;
+  color: var(--text);
+  transition: background 0.1s;
+}
+
+.rl:last-child { border-bottom: none; }
+.rl:hover { background: color-mix(in srgb, var(--accent) 4%, var(--surface) 96%); text-decoration: none; color: var(--text); }
+
+.rl-body { flex: 1; }
+.rl-title { font-size: 14px; font-weight: 500; margin-bottom: 2px; }
+.rl-desc { font-size: 13px; color: var(--text-muted); }
+.rl-arrow { color: var(--border); font-size: 15px; flex-shrink: 0; }
+
+/* ── FOOTER ── */
+footer {
+  padding: 28px 0;
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+footer .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition-duration: 0.01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="container">
+    <a class="wordmark" href="/">Looper Golf</a>
+    <span class="nav-sep">/</span>
+    <span class="nav-badge">Developers</span>
+    <div class="nav-right">
+      <a href="index.html">Home</a>
+      <a href="mcp.html">MCP</a>
+      <a href="connect.html">Connect</a>
+      <a href="developers.html" class="active">Developers</a>
+      <a href="help.html">Help</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="container">
+      <h1>Golf intelligence<br>for <em>Claude</em> and any MCP agent</h1>
+      <p class="hero-desc">Looper Golf exposes your real performance data — launch monitor shots, swing analysis, on-course rounds, club fitting — as 70 structured tools over the Model Context Protocol. Claude does the reasoning. The data is yours.</p>
+      <div class="prompt-example">
+        <strong>Try asking Claude</strong>
+        "Analyse my last 5 rounds and tell me what's holding back my handicap."
+      </div>
+      <div class="badge-row">
+        <span class="badge"><span class="dot"></span>70 tools</span>
+        <span class="badge"><span class="dot"></span>OAuth 2.1</span>
+        <span class="badge"><span class="dot"></span>No server-side LLM</span>
+        <span class="badge"><span class="dot"></span>Hosted on Cloud Run</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUICKSTART -->
+  <div class="section">
+    <div class="container">
+      <p class="section-label">Quickstart</p>
+      <h2>Connect in 30 seconds</h2>
+      <div class="steps">
+
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h3>Install Claude Desktop</h3>
+            <p>Download Claude Desktop for Mac or Windows. MCP integration is built in — no extensions or plugins required.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h3>Add Looper Golf to <span class="ic">claude_desktop_config.json</span></h3>
+            <div class="code-wrap">
+              <div class="code-header">
+                <span>claude_desktop_config.json</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              </div>
+              <pre><code id="qs-code"><span class="p">{</span>
+  <span class="k">"mcpServers"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="k">"looper-golf"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="k">"type"</span><span class="p">:</span>  <span class="s">"http"</span><span class="p">,</span>
+      <span class="k">"url"</span><span class="p">:</span>   <span class="s">"https://looper-mcp-4b6kzuhpma-ew.a.run.app/mcp"</span><span class="p">,</span>
+      <span class="k">"auth"</span><span class="p">:</span>  <span class="p">{</span> <span class="k">"type"</span><span class="p">:</span> <span class="s">"oauth2"</span> <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h3>Sign in with Looper Golf</h3>
+            <p>Restart Claude Desktop. Claude will prompt you to authenticate — your player resolves automatically from the OAuth session. No player IDs, no manual setup.</p>
+            <p>Then just ask. <span class="ic">get_player_profile()</span> with no arguments is Claude's first call and bootstraps everything else.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- CAPABILITIES -->
+  <div class="section">
+    <div class="container">
+      <p class="section-label">Capabilities</p>
+      <h2>What Claude can do with your data</h2>
+      <p class="lead">Every tool returns structured JSON. Claude synthesises natural-language answers from it — there is no server-side LLM, so cold starts stay fast and your data never passes through a second model.</p>
+      <div class="cap-grid">
+        <div class="cap-row">
+          <div class="cap-cat">Performance data</div>
+          <div class="cap-desc">Club carry, ball speed, spin, launch angle, smash factor — raw and aggregated across sessions</div>
+        </div>
+        <div class="cap-row">
+          <div class="cap-cat">Round analysis</div>
+          <div class="cap-desc">Hole-by-hole scoring, birdies, GIR/FIR, putts, strokes gained (OTT / APP / ARG / PUTT)</div>
+        </div>
+        <div class="cap-row">
+          <div class="cap-cat">Swing coaching</div>
+          <div class="cap-desc">Detected faults with root-cause chains, prioritised drills, practice plans, and swing reports</div>
+        </div>
+        <div class="cap-row">
+          <div class="cap-cat">Club selection</div>
+          <div class="cap-desc">Physics-adjusted recommendations for wind, elevation, temperature, lie, and hazards</div>
+        </div>
+        <div class="cap-row">
+          <div class="cap-cat">Course strategy</div>
+          <div class="cap-desc">18-hole plans with per-shot reasoning, hazard warnings, and layup alternatives</div>
+        </div>
+        <div class="cap-row">
+          <div class="cap-cat">Benchmarks</div>
+          <div class="cap-desc">Stats vs. PGA Tour averages and handicap-tier baselines</div>
+        </div>
+        <div class="cap-row">
+          <div class="cap-cat">Coach in the Loop</div>
+          <div class="cap-desc">Human coaches assign drills, share videos, and create lesson programs — visible to Claude</div>
+        </div>
+        <div class="cap-row">
+          <div class="cap-cat">Goals & progress</div>
+          <div class="cap-desc">Set improvement goals, track metrics over time, log practice notes</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOOLS -->
+  <div class="section">
+    <div class="container">
+      <p class="section-label">Tools</p>
+      <h2>70 tools across 8 categories</h2>
+      <p class="lead">Tools are annotated read-only or write so MCP clients can display intent clearly before a write runs.</p>
+      <div class="tool-cats">
+
+        <div class="tool-cat">
+          <h3>Setup &amp; Authentication</h3>
+          <div class="tool-list">
+            <span class="tool-chip">authenticate</span>
+            <span class="tool-chip">register_player</span>
+            <span class="tool-chip">list_profiles</span>
+            <span class="tool-chip">setup_from_profile</span>
+            <span class="tool-chip">setup_bag</span>
+            <span class="tool-chip">import_shots</span>
+            <span class="tool-chip">log_club_distances</span>
+            <span class="tool-chip">get_subscription_status</span>
+          </div>
+        </div>
+
+        <div class="tool-cat">
+          <h3>Player Data</h3>
+          <div class="tool-list">
+            <span class="tool-chip">get_player_profile</span>
+            <span class="tool-chip">list_players</span>
+            <span class="tool-chip">get_club_statistics</span>
+            <span class="tool-chip">get_club_distances</span>
+            <span class="tool-chip">get_bag_composition</span>
+            <span class="tool-chip">get_session_history</span>
+            <span class="tool-chip">get_session_detail</span>
+            <span class="tool-chip">get_round_history</span>
+            <span class="tool-chip">get_round_detail</span>
+            <span class="tool-chip">get_player_tendencies</span>
+          </div>
+        </div>
+
+        <div class="tool-cat">
+          <h3>Coaching &amp; Swing Analysis</h3>
+          <div class="tool-list">
+            <span class="tool-chip">get_swing_faults</span>
+            <span class="tool-chip">get_coaching_plan</span>
+            <span class="tool-chip">get_swing_analysis</span>
+            <span class="tool-chip">get_swing_reports</span>
+            <span class="tool-chip">get_drill_history</span>
+            <span class="tool-chip">get_top_focus_areas</span>
+            <span class="tool-chip">search_coaching_content</span>
+          </div>
+        </div>
+
+        <div class="tool-cat">
+          <h3>Analytics</h3>
+          <div class="tool-list">
+            <span class="tool-chip">get_benchmarks</span>
+            <span class="tool-chip">get_practice_trends</span>
+            <span class="tool-chip">get_strokes_gained</span>
+            <span class="tool-chip">get_round_strokes_gained</span>
+            <span class="tool-chip">get_dispersion_profile</span>
+            <span class="tool-chip">get_scoring_stats</span>
+            <span class="tool-chip">get_distance_gapping</span>
+            <span class="tool-chip">compare_rounds</span>
+          </div>
+        </div>
+
+        <div class="tool-cat">
+          <h3>Caddie &amp; Strategy</h3>
+          <div class="tool-list">
+            <span class="tool-chip">recommend_club</span>
+            <span class="tool-chip">get_pre_round_briefing</span>
+            <span class="tool-chip">list_courses</span>
+            <span class="tool-chip">get_course_strategy</span>
+          </div>
+        </div>
+
+        <div class="tool-cat">
+          <h3>Goals &amp; Notes</h3>
+          <div class="tool-list">
+            <span class="tool-chip">get_goals</span>
+            <span class="tool-chip">set_goal</span>
+            <span class="tool-chip">log_practice_note</span>
+          </div>
+        </div>
+
+        <div class="tool-cat">
+          <h3>Coach in the Loop — Player side</h3>
+          <div class="tool-list">
+            <span class="tool-chip">find_coaches</span>
+            <span class="tool-chip">request_coach</span>
+            <span class="tool-chip">get_coach_inbox</span>
+            <span class="tool-chip">get_coach_messages</span>
+            <span class="tool-chip">get_coach_assignments</span>
+            <span class="tool-chip">get_coach_practice_plan</span>
+            <span class="tool-chip">get_coach_lesson_program</span>
+            <span class="tool-chip">send_coach_message</span>
+          </div>
+        </div>
+
+        <div class="tool-cat">
+          <h3>Coach in the Loop — Coach side</h3>
+          <div class="tool-list">
+            <span class="tool-chip">register_coach</span>
+            <span class="tool-chip">get_coach_students</span>
+            <span class="tool-chip">get_student_stats</span>
+            <span class="tool-chip">get_student_briefing</span>
+            <span class="tool-chip">create_practice_plan</span>
+            <span class="tool-chip">create_swing_report</span>
+            <span class="tool-chip">create_lesson_program</span>
+            <span class="tool-chip">send_message_to_student</span>
+            <span class="tool-chip more">+ 12 more</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- AUTH -->
+  <div class="section">
+    <div class="container">
+      <p class="section-label">Authentication</p>
+      <h2>Two ways to connect</h2>
+      <p class="lead">OAuth is the default for Claude Desktop and Claude.ai. API keys work for server-to-server integrations or testing without a browser.</p>
+      <div class="auth-grid">
+        <div class="auth-card">
+          <span class="auth-tag">Recommended</span>
+          <h3>OAuth 2.1</h3>
+          <p>Sign in with your Looper Golf account. Claude Desktop handles the flow automatically — your player resolves from the session, no IDs required in any subsequent tool call.</p>
+        </div>
+        <div class="auth-card">
+          <span class="auth-tag">Server-to-server</span>
+          <h3>API Key</h3>
+          <p>Set <span class="ic" style="font-size:11px;">LOOPER_MCP_API_KEYS</span> on the server, then call <span class="ic" style="font-size:11px;">authenticate</span> with the key before any other tool. Pair with <span class="ic" style="font-size:11px;">LOOPER_MCP_DEFAULT_PLAYER</span> to skip player resolution.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESOURCES -->
+  <div class="section">
+    <div class="container">
+      <p class="section-label">Links</p>
+      <h2>Get started</h2>
+      <div class="resource-list">
+        <a class="rl" href="https://claude.ai/download" target="_blank" rel="noopener">
+          <div class="rl-body">
+            <div class="rl-title">Download Claude Desktop</div>
+            <div class="rl-desc">Mac and Windows — MCP support is built in</div>
+          </div>
+          <span class="rl-arrow">↗</span>
+        </a>
+        <a class="rl" href="https://modelcontextprotocol.io" target="_blank" rel="noopener">
+          <div class="rl-body">
+            <div class="rl-title">Model Context Protocol</div>
+            <div class="rl-desc">The open standard this server implements</div>
+          </div>
+          <span class="rl-arrow">↗</span>
+        </a>
+        <a class="rl" href="https://looper-mcp-4b6kzuhpma-ew.a.run.app/mcp" target="_blank" rel="noopener">
+          <div class="rl-body">
+            <div class="rl-title">Live MCP endpoint</div>
+            <div class="rl-desc">looper-mcp-4b6kzuhpma-ew.a.run.app/mcp</div>
+          </div>
+          <span class="rl-arrow">↗</span>
+        </a>
+        <a class="rl" href="/" target="_self">
+          <div class="rl-body">
+            <div class="rl-title">Looper Golf app</div>
+            <div class="rl-desc">Create an account and start logging your shots and rounds</div>
+          </div>
+          <span class="rl-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="container">
+    <span>&copy; 2026 Looper Golf &middot; MIT License</span>
+    <span>
+      <a href="index.html" style="color:var(--text-muted);text-decoration:none;">Home</a> &middot;
+      <a href="mcp.html" style="color:var(--text-muted);text-decoration:none;">MCP</a> &middot;
+      <a href="connect.html" style="color:var(--text-muted);text-decoration:none;">Connect</a> &middot;
+      <a href="privacy.html" style="color:var(--text-muted);text-decoration:none;">Privacy</a> &middot;
+      <a href="mailto:info@paritygolf.se" style="color:var(--text-muted);text-decoration:none;">Support</a>
+    </span>
+  </div>
+</footer>
+
+<script>
+function copyCode(btn) {
+  const pre = btn.closest('.code-wrap').querySelector('pre');
+  navigator.clipboard.writeText(pre.innerText).then(function () {
+    var orig = btn.textContent;
+    btn.textContent = 'Copied';
+    btn.classList.add('copied');
+    setTimeout(function () { btn.textContent = orig; btn.classList.remove('copied'); }, 1800);
+  });
+}
+</script>
+
+</body>
+</html>
