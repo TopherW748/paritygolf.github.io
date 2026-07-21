@@ -332,29 +332,24 @@
 
     <div class="card">
       <h2>Add Looper Golf to Claude</h2>
-      <p class="subtitle">Copy the server URL below and paste it into Claude's integrations settings.</p>
-
-      <div class="url-row">
-        <div class="url-box" id="mcp-url">https://looper-mcp-902947329020.europe-west1.run.app</div>
-        <button class="btn-copy-inline" id="copy-url-btn" onclick="copyMcpUrl()">Copy</button>
-      </div>
+      <p class="subtitle">The Looper app generates a personal Connection URL with your authentication token built in. Copy it and paste it into Claude.</p>
 
       <div class="step">
         <div class="step-num">1</div>
         <div class="step-body">
-          <strong>Claude.ai (web):</strong> Settings &rarr; Integrations &rarr; Add custom connector &rarr; paste the URL &rarr; Save
+          <strong>Open the Looper app</strong> &rarr; tap <strong>AI Assistants</strong> &rarr; tap <strong>Copy URL</strong>. Your personal Connection URL includes your authentication token — no separate login required.
         </div>
       </div>
       <div class="step">
         <div class="step-num">2</div>
         <div class="step-body">
-          <strong>Claude iOS / Android:</strong> Settings &rarr; Integrations &rarr; Add &rarr; paste the URL
+          <strong>Claude.ai (web):</strong> Settings &rarr; Integrations &rarr; Add custom connector &rarr; paste the URL &rarr; Save
         </div>
       </div>
       <div class="step">
         <div class="step-num">3</div>
         <div class="step-body">
-          Claude will open a sign-in page. <strong>Log in with your Looper credentials</strong> to authorise the connection.
+          <strong>Claude iOS / Android:</strong> Settings &rarr; Integrations &rarr; Add &rarr; paste the URL
         </div>
       </div>
       <div class="step">
@@ -365,7 +360,7 @@
       </div>
 
       <div class="callout">
-        <strong>No Looper account yet?</strong> Just ask Claude: <em>"Create a Looper Golf account for me"</em> — it will set one up on the spot using the <code style="background:#d1faf2;padding:1px 5px;border-radius:3px;font-size:0.82em;">register_player</code> tool. No app download required to get started.
+        <strong>Token expiry:</strong> Connection URLs are valid for 1 year. If Claude stops responding, return to AI Assistants in the Looper app to generate a fresh URL.
       </div>
     </div>
 
@@ -384,64 +379,42 @@
   <!-- ═══ DESKTOP TAB ═══ -->
   <div id="tab-desktop" class="hidden">
 
-    <!-- LOGIN -->
-    <div id="login-card" class="card">
-      <h2>Log in to your Looper account</h2>
-      <p class="subtitle">We'll generate a JSON config you can paste into Claude Desktop or Claude Code.</p>
-      <form id="login-form" onsubmit="return handleLogin(event)">
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" required placeholder="you@example.com" autocomplete="email" />
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" id="password" required placeholder="Your password" autocomplete="current-password" />
-        </div>
-        <button type="submit" class="btn btn-primary" id="login-btn">Log In &amp; Generate Config</button>
-        <div id="login-error" class="error-msg hidden"></div>
-      </form>
-      <div style="text-align:center;font-size:0.88rem;margin-top:14px;color:var(--muted);">
-        Don't have an account? <a href="signup.html" style="color:var(--teal-dark);text-decoration:none;font-weight:600;">Sign up free</a>
-      </div>
-    </div>
-
-    <!-- CONNECTION (hidden until login) -->
-    <div id="token-card" class="card hidden">
-      <h2>Your Connection Config</h2>
-
-      <div class="section-label">Claude Desktop &amp; Claude Code — JSON config</div>
-      <div class="code-block" id="config-display"></div>
-      <button class="btn btn-copy-block" id="copy-config-btn" onclick="copyConfig()">Copy JSON Config</button>
-
-      <div class="section-label" style="margin-top:22px;">Connection URL (for any MCP client)</div>
-      <div class="token-box" id="url-display"></div>
-      <button class="btn btn-copy-block" id="copy-url-btn2" onclick="copyURL()">Copy URL</button>
-
-      <div class="meta-row">
-        <span>Expires: <span id="token-expiry"></span></span>
-        <span id="token-tier"></span>
-      </div>
-    </div>
-
-    <!-- INSTRUCTIONS (hidden until login) -->
-    <div id="instructions" class="card hidden">
-      <h2>Where to paste</h2>
+    <div class="card">
+      <h2>Claude Desktop &amp; Claude Code</h2>
+      <p class="subtitle">Get your Connection URL from the Looper app, then add it to your Claude config file.</p>
 
       <div class="step">
         <div class="step-num">1</div>
         <div class="step-body">
-          <strong>Claude Desktop:</strong> Settings &rarr; Developer &rarr; Edit Config &rarr; paste the JSON above inside the <code style="background:#e8f5f1;padding:1px 5px;border-radius:3px;font-size:0.82em;">mcpServers</code> block
+          <strong>Open the Looper app</strong> &rarr; tap <strong>AI Assistants</strong> &rarr; tap <strong>Copy URL</strong>.
         </div>
       </div>
       <div class="step">
         <div class="step-num">2</div>
         <div class="step-body">
-          <strong>Claude Code:</strong> <code style="background:#e8f5f1;padding:1px 5px;border-radius:3px;font-size:0.82em;">/mcp add looper-golf &lt;URL&gt;</code> or paste the JSON into <code style="background:#e8f5f1;padding:1px 5px;border-radius:3px;font-size:0.82em;">~/.claude/settings.json</code>
+          <strong>Claude Desktop:</strong> open <code style="background:#e8f5f1;padding:1px 5px;border-radius:3px;font-size:0.82em;">claude_desktop_config.json</code> and add:
+          <div class="code-block" style="margin-top:10px;">{
+  "mcpServers": {
+    "looper-golf": {
+      "url": "&lt;paste your Connection URL here&gt;"
+    }
+  }
+}</div>
         </div>
       </div>
       <div class="step">
         <div class="step-num">3</div>
-        <div class="step-body">Restart Claude Desktop and try: <em>"Design a practice plan to lower my handicap."</em></div>
+        <div class="step-body">
+          <strong>Claude Code:</strong> run <code style="background:#e8f5f1;padding:1px 5px;border-radius:3px;font-size:0.82em;">/mcp add looper-golf &lt;your URL&gt;</code> or paste the JSON above into <code style="background:#e8f5f1;padding:1px 5px;border-radius:3px;font-size:0.82em;">~/.claude/settings.json</code>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">Restart Claude Desktop and try: <em>"Design a practice plan to fix my slice."</em></div>
+      </div>
+
+      <div class="callout">
+        <strong>Token expiry:</strong> Connection URLs are valid for 1 year. If Claude stops responding, return to AI Assistants in the Looper app to generate a fresh URL.
       </div>
     </div>
 
@@ -463,113 +436,11 @@
 </footer>
 
 <script>
-  const API_BASE = "https://looper-902947329020.europe-west1.run.app";
-  const MCP_BASE_URL = "https://looper-mcp-902947329020.europe-west1.run.app/mcp/";
-
-  let connectionURL = null;
-  let configJSON = null;
-
   function showTab(tab) {
     document.getElementById('tab-oauth').classList.toggle('hidden', tab !== 'oauth');
     document.getElementById('tab-desktop').classList.toggle('hidden', tab !== 'desktop');
     document.querySelectorAll('.method-tab').forEach((el, i) => {
       el.classList.toggle('active', (i === 0 && tab === 'oauth') || (i === 1 && tab === 'desktop'));
-    });
-  }
-
-  function copyMcpUrl() {
-    const url = document.getElementById('mcp-url').textContent.trim();
-    navigator.clipboard.writeText(url).then(() => {
-      const btn = document.getElementById('copy-url-btn');
-      btn.textContent = 'Copied!';
-      btn.classList.add('copied');
-      setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
-    });
-  }
-
-  async function handleLogin(e) {
-    e.preventDefault();
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-    const btn = document.getElementById("login-btn");
-    const errorEl = document.getElementById("login-error");
-
-    btn.disabled = true;
-    btn.textContent = "Logging in...";
-    errorEl.classList.add("hidden");
-
-    try {
-      const loginResp = await fetch(`${API_BASE}/auth/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-
-      if (!loginResp.ok) {
-        const err = await loginResp.json();
-        throw new Error(err.msg || err.error || "Login failed");
-      }
-
-      const loginData = await loginResp.json();
-      const jwt = loginData.access_token;
-
-      const tokenResp = await fetch(`${API_BASE}/auth/mcp-token`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${jwt}`,
-        },
-        body: JSON.stringify({ label: "Web Connect" }),
-      });
-
-      if (!tokenResp.ok) throw new Error("Failed to generate connection token");
-
-      const tokenData = await tokenResp.json();
-      const mcpToken = tokenData.mcp_token;
-
-      connectionURL = `${MCP_BASE_URL}?token=${mcpToken}`;
-      configJSON = JSON.stringify({
-        mcpServers: { "looper-golf": { url: connectionURL } }
-      }, null, 2);
-
-      document.getElementById("url-display").textContent = connectionURL;
-      document.getElementById("config-display").textContent = configJSON;
-      document.getElementById("token-expiry").textContent = (tokenData.expires_at || "").slice(0, 10);
-
-      const tier = tokenData.tier || "free";
-      document.getElementById("token-tier").innerHTML =
-        `<span class="tier-badge tier-${tier}">${tier.toUpperCase()}</span>`;
-
-      document.getElementById("login-card").classList.add("hidden");
-      document.getElementById("token-card").classList.remove("hidden");
-      document.getElementById("instructions").classList.remove("hidden");
-
-    } catch (err) {
-      errorEl.textContent = err.message;
-      errorEl.classList.remove("hidden");
-    } finally {
-      btn.disabled = false;
-      btn.textContent = "Log In & Generate Config";
-    }
-  }
-
-  function copyURL() {
-    if (!connectionURL) return;
-    navigator.clipboard.writeText(connectionURL).then(() => {
-      const btn = document.getElementById("copy-url-btn2");
-      btn.textContent = "Copied!";
-      btn.classList.add("copied");
-      setTimeout(() => { btn.textContent = "Copy URL"; btn.classList.remove("copied"); }, 2000);
-    });
-  }
-
-  function copyConfig() {
-    if (!configJSON) return;
-    navigator.clipboard.writeText(configJSON).then(() => {
-      const btn = document.getElementById("copy-config-btn");
-      btn.textContent = "Copied!";
-      btn.classList.add("copied");
-      setTimeout(() => { btn.textContent = "Copy JSON Config"; btn.classList.remove("copied"); }, 2000);
     });
   }
 </script>
