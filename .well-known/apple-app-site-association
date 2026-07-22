@@ -1,0 +1,16 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["UYZZNPXRGM.topherAI.Looper"],
+        "components": [
+          { "/": "/course/*", "comment": "course landing screens" },
+          { "/": "/round/*", "comment": "round summaries" },
+          { "/": "/share/*", "comment": "shareable links" },
+          { "/": "/coach/*/invite/*", "comment": "coach invites" },
+          { "/": "/install", "exclude": true, "comment": "explicitly do NOT open in app; web only" }
+        ]
+      }
+    ]
+  }
+}

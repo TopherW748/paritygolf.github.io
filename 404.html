@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Looper Golf</title>
+  <meta name="robots" content="noindex" />
+  <!--
+    Universal Link web fallback.
+
+    GitHub Pages has no server-side routing, so paths like /course/<slug>,
+    /round/<id>, /share/round/<token>, and /coach/<id>/invite/<token> have no
+    matching static file and fall through to this 404.html — GitHub Pages
+    serves it for any unmatched path on the whole site, which is what makes
+    this work as a catch-all. iOS only ever GETs this page in the first place
+    when the app isn't installed or the AASA file didn't resolve (Universal
+    Links skip Safari entirely when they work) — see
+    docs/swing-fault-work/universal_links_app_clips.md section 2.4.
+
+    A tap on this page's own "Get the App" link does NOT retry the Universal
+    Link — per Apple, only a link tapped outside Safari (Mail, Notes,
+    Messages) or a manually-typed address bar URL can trigger one; a link
+    already rendered inside a Safari page cannot. The link below intentionally
+    goes straight to the App Store.
+  -->
+  <meta name="apple-itunes-app" id="smart-app-banner" content="app-id=6759972833" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal:       #00C9A7;
+      --teal-dark:  #00A88C;
+      --green-deep: #0D3B2E;
+      --bg:         #F7FFFE;
+      --text:       #1A2E29;
+      --muted:      #5A7A72;
+      --border:     #D0EDE8;
+      --white:      #FFFFFF;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .card {
+      max-width: 420px;
+      width: 100%;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px 32px;
+      text-align: center;
+    }
+
+    .wordmark {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--green-deep);
+      letter-spacing: -0.3px;
+      margin-bottom: 24px;
+    }
+    .wordmark span { color: var(--teal-dark); }
+
+    h1 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--green-deep);
+      margin-bottom: 10px;
+    }
+
+    p.sub {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 28px;
+    }
+
+    .appstore-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: #000;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 14px;
+      padding: 11px 22px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.1px;
+      border: 1.5px solid rgba(255,255,255,0.15);
+      transition: background 0.2s, transform 0.15s;
+    }
+    .appstore-btn:hover { background: #1a1a1a; transform: translateY(-1px); }
+    .appstore-btn svg { flex-shrink: 0; }
+    .appstore-btn-text { display: flex; flex-direction: column; line-height: 1.2; text-align: left; }
+    .appstore-btn-text span:first-child { font-size: 0.68rem; font-weight: 400; opacity: 0.85; letter-spacing: 0.3px; }
+    .appstore-btn-text span:last-child  { font-size: 1rem; font-weight: 700; }
+
+    .home-link {
+      display: block;
+      margin-top: 24px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      text-decoration: none;
+    }
+    .home-link:hover { color: var(--teal-dark); }
+
+    .skeleton {
+      display: inline-block;
+      width: 70%;
+      height: 1.4rem;
+      border-radius: 6px;
+      background: var(--border);
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="wordmark">Looper<span>Golf</span></div>
+    <h1 id="headline">Get the full experience in the app</h1>
+    <p class="sub" id="subline">Looper Golf isn't installed yet — grab it from the App Store to open this link.</p>
+    <a class="appstore-btn" id="appstore-link" href="https://apps.apple.com/us/app/looper-golf/id6759972833" target="_blank" rel="noopener">
+      <svg width="22" height="22" viewBox="0 0 814 1000" fill="white" xmlns="http://www.w3.org/2000/svg">
+        <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-37.3-155.5-127.4C46.5 790.9 0 686.7 0 586.3c0-168.6 110.2-257.9 218.7-257.9 77.7 0 142.1 51.4 189.6 51.4 45.5 0 117.3-54.4 207.2-54.4zm-120.3-174.1c37.5-45.2 64.4-107.9 64.4-170.6 0-8.9-.6-17.9-2.2-25.5-61 2.2-134.7 40.8-178.3 91.1-35.3 40.8-69.3 103.5-69.3 167.2 0 9.5 1.6 19.1 2.2 22.3 3.8.6 9.5 1.3 15.2 1.3 55.4 0 125.1-37.5 167.9-85.8z"/>
+      </svg>
+      <span class="appstore-btn-text">
+        <span>Download on the</span>
+        <span>App Store</span>
+      </span>
+    </a>
+    <a class="home-link" href="/">Not what you're looking for? Go to looper.golf</a>
+  </div>
+
+  <script>
+    (function () {
+      // Same Cloud Run origin the iOS app talks to (AppState.productionURL).
+      // CORS_ORIGINS on the backend must include https://paritygolf.se for
+      // this fetch to succeed — otherwise the page silently falls back to
+      // the generic copy below, which is a safe default either way.
+      var API_BASE = "https://looper-902947329020.europe-west1.run.app";
+      var path = window.location.pathname.replace(/\/+$/, "");
+      var parts = path.split("/").filter(Boolean);
+      var headline = document.getElementById("headline");
+      var subline = document.getElementById("subline");
+      var appstoreLink = document.getElementById("appstore-link");
+      var banner = document.getElementById("smart-app-banner");
+      var hasDeepLink = false;
+
+      function setAppArgument(pt) {
+        var url = "https://apps.apple.com/us/app/looper-golf/id6759972833?ct=looper&pt=" + encodeURIComponent(pt || "");
+        appstoreLink.href = url;
+        banner.setAttribute("content", "app-id=6759972833, app-argument=https://paritygolf.se" + path);
+      }
+
+      if (parts[0] === "course" && parts[1]) {
+        var slug = parts[1];
+        hasDeepLink = true;
+        headline.innerHTML = '<span class="skeleton"></span>';
+        setAppArgument(slug);
+        fetch(API_BASE + "/strategy/courses/by-slug/" + encodeURIComponent(slug))
+          .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+          .then(function (data) {
+            headline.textContent = data.name || "Your course is ready in Looper";
+            subline.textContent = "Get the app to see hole-by-hole strategy and Caddie recommendations for " + (data.name || "this course") + ".";
+          })
+          .catch(function () {
+            headline.textContent = "Your course is ready in Looper";
+            subline.textContent = "Get the app to see hole-by-hole strategy and Caddie recommendations.";
+          });
+      } else if (parts[0] === "round" && parts[1]) {
+        hasDeepLink = true;
+        setAppArgument(parts[1]);
+        headline.textContent = "View this round in Looper";
+        subline.textContent = "Get the app to see the full round summary, strokes gained, and shot-by-shot detail.";
+      } else if (parts[0] === "share") {
+        hasDeepLink = true;
+        setAppArgument(parts.slice(1).join("/"));
+        headline.textContent = "A round was shared with you";
+        subline.textContent = "Get Looper Golf to view the full shared round.";
+      } else if (parts[0] === "coach" && parts[2] === "invite") {
+        hasDeepLink = true;
+        setAppArgument(parts[1]);
+        headline.textContent = "You've been invited to connect with a coach";
+        subline.textContent = "Get the app to accept the invite and connect with your coach.";
+      } else {
+        headline.textContent = "Page not found";
+        subline.textContent = "That link doesn't match anything on paritygolf.se.";
+      }
+
+      // Deferred deep link: stash this exact URL on the system pasteboard when
+      // the golfer taps "Get the App" so the app can pick it up on first
+      // launch after install (see AppState.checkPasteboardForDeferredCourseLink
+      // in the iOS app — an organic App Store tap carries no attribution data
+      // Apple will hand back, so this is the reliable alternative).
+      if (hasDeepLink && navigator.clipboard && window.isSecureContext) {
+        appstoreLink.addEventListener("click", function () {
+          navigator.clipboard.writeText(window.location.origin + path).catch(function () {});
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
